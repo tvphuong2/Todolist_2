@@ -8,7 +8,7 @@ export default function DangSuDung(props:any) {
     const j_steps = JSON.parse(banghi.steps)
     var progress:any = []
     var step:any = []
-
+    var sudung = 'black';
     function chuyenTrang() {
         if (banghi.progress == null || banghi.progress == "") {
             console.log("pip")
@@ -36,12 +36,13 @@ export default function DangSuDung(props:any) {
         }
         doiBanGhi(banghi)
         thayTrangThai(progress)
-        thayBuoc(step)
+        thayBuoc(step);
+        sudung = 'red';
     }
-
+    console.log(sudung);
     return (
         <TouchableOpacity onPress={chuyenTrang}>
-            <Text style={styles.icon} key={banghi.list_id}>{banghi.name[0] + banghi.name[1]}</Text>
+            <Text style={[styles.icon , {backgroundColor : `${sudung}`}]} key={banghi.list_id}>{banghi.name[0] + banghi.name[1]}</Text>
         </TouchableOpacity>
     );
 }
@@ -52,7 +53,8 @@ const styles = StyleSheet.create({
         width:50,
         height: 50,
         padding:15,
-        margin:20,
-        backgroundColor:"pink",
+        margin : 10 ,
+        backgroundColor:"black",
+        color : '#fff'
     },
 });

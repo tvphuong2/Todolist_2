@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import * as API from '../screens/model/API/api'
+import * as API from '../screens/model/API/api';
+import { AntDesign } from '@expo/vector-icons';
 
 const KetQua = (props: any) => {
     const { banghi, index, navigation } = props;
@@ -16,35 +17,36 @@ const KetQua = (props: any) => {
             return (number / 1000000).toFixed(1) + "M";
         }
     }
-
+    // console.log(banghi);
     // var storageList = [];
     // var steps = [];
 
     return (
         <View style={styles.container} key={`k${index}`}>
             <TouchableOpacity key={`n${index}`} onPress={() => navigation.navigate('BanGhi', {banghi})}>
-                <View>
+                <View style={{backgroundColor : 'white' , borderRadius : 12}}>
                 {banghi && banghi.image !== '' ?
                     <Image style={styles.anh} source={{ uri: API.layAnh(banghi.image)}} /> :
                     <Image style={styles.anh} source={require('../assets/images/8.png')} /> 
                 }
                 </View>
-                <View>
-                    <Text style={{color: 'gray', fontSize: 12}}>{banghi.name}</Text>
+                <View style={{position : 'absolute' , borderRadius : 4 ,  top : 5 , left : 5}}>
+                    <Text style={{color: 'black', fontSize: 18 , fontWeight : '700'}}>{banghi.name}</Text>
                 </View>
-            </TouchableOpacity>
-
-        
-            <View>
-                <View>
-                    <View style={{flexDirection: 'row',}}>
-                        <Text style={{color: 'gray', fontSize: 12}}>{handleNumberView(banghi.view)}</Text>
-                        <Text style={{color: 'gray', marginLeft: 3, fontSize: 12}}>lượt xem</Text>
+                <View style={{position : 'absolute' , borderRadius : 5 ,  bottom : 10 , left : 20}}>
+                    <View style={{flexDirection: 'row', alignItems : 'center'}}>
+                        <AntDesign name="eye" size={24} color="black" style={{marginRight : 4}} />
+                        <Text style={{color: 'black', fontSize: 15 , fontWeight : '700'}}>{handleNumberView(banghi.view)}</Text>
+                        {/* <Text style={{color: 'black', marginLeft: 3, fontSize: 12}}>lượt xem</Text> */}
                     </View>
                 </View>
-                
-
-            </View>
+                <View style={{position : 'absolute' , borderRadius : 5 ,  bottom : 10 , right : 20}}>
+                    <View style={{flexDirection: 'row', alignItems : 'center'}}>
+                        <AntDesign name="like1" size={24} color="black" />
+                        <Text style={{color: 'black', fontSize: 15 , fontWeight : '700'}}>{banghi.l}</Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -59,6 +61,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         borderColor: 'gray',
+        position : 'relative'
     },
     image: {
         width: '100%',
@@ -87,7 +90,8 @@ const styles = StyleSheet.create({
     anh: {
         width:300,
         height:150,
-        borderRadius: 10,
+        borderRadius: 12 ,
+        opacity : 0.4
     }
 
 });

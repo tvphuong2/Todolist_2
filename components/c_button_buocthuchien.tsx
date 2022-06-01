@@ -2,11 +2,13 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import * as LOCAL from '../screens/model/API/SQLite'
+const rgba = require('color-rgba');
 
 export default function DangSuDung(props:any) {
-    const {trangThai, thayTrangThai, buoc} = props;
+    const {trangThai, thayTrangThai, buoc , color , complete , displayMota} = props;
     var trang_thai = [...trangThai]
 
+    var TextNameBuoc = complete == "true" ? buoc.name.substring(0, 25) + "..." : buoc.name;
 
     function thucHien() {
         if (trang_thai[buoc.key] == "0")
@@ -18,18 +20,18 @@ export default function DangSuDung(props:any) {
         thayTrangThai(trang_thai)
     }
     return (
-        <View>
+        <View style={{padding : 6 , backgroundColor : 'black'}}>
             <TouchableOpacity onPress={thucHien}>
                 {
                     buoc.substep==null ?
-                    <View style={{marginStart:30}}>
-                        <Text style={{color:'white'}} key={buoc.key + "b"}>{buoc.name}</Text>
-                        <Text style={{color:'grey'}} key={buoc.key + "bc"}>{buoc.description}</Text>
+                    <View style={{marginStart:35}}>
+                        <Text style={{color:`${color}` , fontSize : 16 , fontWeight : '600'}} key={buoc.key + "b"}>{TextNameBuoc}</Text>
+                        <Text style={{display:`${displayMota}` , color:'grey'}} key={buoc.key + "bc"}>{buoc.description}</Text>
                     </View>
                     :
                     <View>
-                        <Text style={{color:'white'}} key={buoc.key + "b"}>{buoc.name}</Text>
-                        <Text style={{color:'grey'}} key={buoc.key + "bc"}>{buoc.description}</Text>
+                        <Text style={{color:`${color}` , fontSize : 16 , fontWeight : '700'}} key={buoc.key + "b"}>{TextNameBuoc}</Text>
+                        <Text style={{display:`${displayMota}`, color: 'grey'}} key={buoc.key + "bc"}>{buoc.description}</Text>
                     </View>
                 }
             </TouchableOpacity>
@@ -45,6 +47,6 @@ const styles = StyleSheet.create({
         height: 50,
         padding:15,
         margin:20,
-        backgroundColor:"blue",
-    },
+        backgroundColor:"pink",
+    }
 });
