@@ -6,7 +6,7 @@ import { RootTabScreenProps } from '../types';
 import DangSuDung from '../components/c_button_sudung'
 import BuocThucHien from '../components/c_button_buocthuchien'
 import * as API from './model/API/api';
-import * as LOCAL from '../screens/model/API/SQLite';
+import * as LOCAL from '../screens/model/API/Local';
 import Colors from '../constants/Colors';
 import { AntDesign } from '@expo/vector-icons';
 
@@ -17,15 +17,16 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'VanHanh
   const [dangThucHien, doiBanGhi]:any = useState(null);
   
   useEffect(() => {
-    API.dangNhap("tvphuong10@gmail.com","123456",console.log)
-
-    LOCAL.DangSuDung(thayBanGhi) 
+    API.dangNhap("tvphuong10@gmail.com","123456",console.log);
+    // LOCAL.reset();
+    LOCAL.createLocalList();
+    LOCAL.getProgress(thayBanGhi) 
   }, [])
 
   useEffect(() => {
     if (dangThucHien)
-      LOCAL.ThayTienDo(dangThucHien.list_id, trangThai.toString(), (res:any) => {
-        LOCAL.DangSuDung(thayBanGhi) 
+      LOCAL.setProgress(dangThucHien.list_id, trangThai.toString(), (res:any) => {
+        LOCAL.getProgress(thayBanGhi) 
       })
   }, [trangThai])
   

@@ -4,7 +4,7 @@ import  BanGhi  from '../components/c_button_luutru';
 import {Ionicons, MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
 import { RootTabScreenProps } from '../types';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import * as LOCAL from '../screens/model/API/SQLite';
+import * as LOCAL from '../screens/model/API/Local';
 import * as API from '../screens/model/API/api';
 
  
@@ -15,7 +15,7 @@ export default function LuuTru({ navigation }: RootTabScreenProps<'KhamPha'>) {
 
   function xoa (key:any) {
     if (noi_bo) {
-      LOCAL.XoaBanGhi(ket_qua[key].list_id, (res:any) => {
+      LOCAL.deleteList(ket_qua[key].list_id, (res:any) => {
         thay_ket_qua(ket_qua.filter((item:any) => item.key != key))
       })
     } else {
@@ -28,7 +28,7 @@ export default function LuuTru({ navigation }: RootTabScreenProps<'KhamPha'>) {
     if (noi_bo) {
       Alert.alert("","Tải bản ghi thành công!!\n Thật ra là chưa làm cái này :v")
     } else {
-      LOCAL.Download(ket_qua[key].steps, ket_qua[key].image, ket_qua[key].name, ket_qua[key].description, (res:any) => {
+      LOCAL.Download(ket_qua[key], (res:any) => {
         Alert.alert("","Đã tải bản ghi về")
       })
     }
@@ -41,7 +41,7 @@ export default function LuuTru({ navigation }: RootTabScreenProps<'KhamPha'>) {
 
   function layDuLieuNoiBo() {
     trang_noi_bo(true)
-    LOCAL.APILayTatCa((res:any) => {
+    LOCAL.getAll((res:any) => {
       for (var i = 0; i < res.length; i++) {
         res[i]['key'] = i
       }
@@ -56,6 +56,7 @@ export default function LuuTru({ navigation }: RootTabScreenProps<'KhamPha'>) {
         res[i]['key'] = i
       }
       thay_ket_qua(res)
+      // console.log(res);
     }) 
   }
 

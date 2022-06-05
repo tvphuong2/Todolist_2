@@ -7,7 +7,7 @@ import {
     TouchableHighlight,
     StyleSheet,
 } from 'react-native'
-import * as LOCAL from '../screens/model/API/SQLite'
+import * as LOCAL from '../screens/model/API/Local'
 
 
 export default function BanGhiNoiBo(props:any) {
@@ -16,8 +16,8 @@ export default function BanGhiNoiBo(props:any) {
 
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);
-    if (!isEnabled) LOCAL.Using(banghi.list_id, console.log)
-    else LOCAL.Cancel(banghi.list_id, console.log)
+    if (!isEnabled) LOCAL.useList(banghi.list_id, console.log)
+    else LOCAL.cancelList(banghi.list_id, console.log)
   }
 	
   useEffect(()=>{

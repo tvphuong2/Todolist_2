@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import * as LOCAL from '../screens/model/API/SQLite'
+import * as LOCAL from '../screens/model/API/Local'
 
 export default function DangSuDung(props:any) {
     const { thayBuoc, thayTrangThai, banghi, thayBanGhi, doiBanGhi} = props;
@@ -18,7 +18,7 @@ export default function DangSuDung(props:any) {
                     progress.push(0)
                 }
             }
-            LOCAL.ThayTienDo(banghi.list_id, progress.toString(), (res:any) => {})
+            LOCAL.setProgress(banghi.list_id, progress.toString(), (res:any) => {})
         } else {
             progress = banghi.progress.split(",")
         }
