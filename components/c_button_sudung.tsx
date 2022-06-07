@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import * as LOCAL from '../screens/model/API/SQLite'
+import * as LOCAL from '../screens/model/API/SQLite';
+import {MaterialIcons} from '@expo/vector-icons';
 
 export default function DangSuDung(props:any) {
     const { thayBuoc, thayTrangThai, banghi, thayBanGhi, doiBanGhi} = props;
@@ -42,7 +43,11 @@ export default function DangSuDung(props:any) {
     console.log(sudung);
     return (
         <TouchableOpacity onPress={chuyenTrang}>
-            <Text style={[styles.icon , {backgroundColor : `${sudung}`}]} key={banghi.list_id}>{banghi.name[0] + banghi.name[1]}</Text>
+            {/* <Text style={[styles.icon , {backgroundColor : `${sudung}`}]} key={banghi.list_id}>{banghi.name[0] + banghi.name[1]}</Text> */}
+            <View style={{flexDirection: 'row', alignItems: 'center', paddingVertical: 10}}>
+                <MaterialIcons name="work" size={35} color="black" />
+                <Text style={{color: '#339fb7', fontSize: 20, fontWeight : 'bold', marginLeft: 10}}>{banghi.name}</Text>
+            </View>
         </TouchableOpacity>
     );
 }

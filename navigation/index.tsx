@@ -24,6 +24,7 @@ import BanGhi from '../screens/ss_banghi';
 import BanGhiNoiBo from '../screens/ss_banghi_noibo';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -46,10 +47,10 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
+      <Stack.Group screenOptions={{ presentation: 'modal'}}>
         <Stack.Screen name="ChuDe" component={ChuDe}/>
         <Stack.Screen name="Modal" component={ModalScreen}/>
-        <Stack.Screen name="BanGhi" component={BanGhi} options={{title: 'Xem bản ghi'}}/>
+        <Stack.Screen name="BanGhi" component={BanGhi} options={{title: ''}}/>
         <Stack.Screen name="BanGhiNoiBo" component={BanGhiNoiBo} options={{title: 'Xem bản ghi'}}/>
       </Stack.Group>
     </Stack.Navigator>
@@ -69,36 +70,46 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="VanHanh"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: "#72c2fb",
+        tabBarInactiveTintColor: '#2e4250',
+        tabBarStyle: {
+          height: 60,
+        }
       }}>
-      <BottomTab.Screen
-        name="VanHanh"
-        component={VanHanh}
-        options={({ navigation }: RootTabScreenProps<'VanHanh'>) => ({
-          title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerShown: false,
-        })}
-      />
       <BottomTab.Screen
         name="LuuTru"
         component={LuuTru}
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="save" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerShown: false
         }}
+      />
+      <BottomTab.Screen
+        name="VanHanh"
+        component={VanHanh}
+        options={({ navigation }: RootTabScreenProps<'VanHanh'>) => ({
+          title: '',
+          tabBarIcon: ({ color }) => <TabBarIcon name="check-circle-o" color={color} />,
+          headerShown: false,
+          tabBarBadge: 2,
+          tabBarBadgeStyle: {
+            backgroundColor: '#f9c8bd',
+            color: 'white',
+          }
+          
+        })}
       />
       <BottomTab.Screen
         name="KhamPha"
         component={KhamPha}
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="compass" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="bandcamp" color={color} />,
           headerShown: false,
         }}
       />
-      <BottomTab.Screen
+      {/* <BottomTab.Screen
         name="ThongBao"
         component={ThongBao}
         options={{
@@ -115,7 +126,7 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
           headerShown: false
         }}
-      />
+      /> */}
     </BottomTab.Navigator>
   );
 }

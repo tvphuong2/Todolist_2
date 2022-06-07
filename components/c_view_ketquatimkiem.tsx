@@ -31,21 +31,22 @@ const KetQua = (props: any) => {
                 }
                 </View>
                 <View style={{position : 'absolute' , borderRadius : 4 ,  top : 5 , left : 5}}>
-                    <Text style={{color: 'black', fontSize: 18 , fontWeight : '700'}}>{banghi.name}</Text>
+                    <Text style={{color: '#173d45', fontSize: 18 , fontWeight : '400'}}>{banghi.name}</Text>
                 </View>
-                <View style={{position : 'absolute' , borderRadius : 5 ,  bottom : 10 , left : 20}}>
+                <View style={{position : 'absolute' , borderRadius : 5 ,  bottom : 40 , right : 20}}>
                     <View style={{flexDirection: 'row', alignItems : 'center'}}>
-                        <AntDesign name="eye" size={24} color="black" style={{marginRight : 4}} />
-                        <Text style={{color: 'black', fontSize: 15 , fontWeight : '700'}}>{handleNumberView(banghi.view)}</Text>
-                        {/* <Text style={{color: 'black', marginLeft: 3, fontSize: 12}}>lượt xem</Text> */}
+                        <AntDesign name="like2" size={24} color="#173d45" />
+                        <Text style={{color: '#173d45', fontSize: 15 , fontWeight : '700'}}>{banghi.l}</Text>
                     </View>
                 </View>
                 <View style={{position : 'absolute' , borderRadius : 5 ,  bottom : 10 , right : 20}}>
                     <View style={{flexDirection: 'row', alignItems : 'center'}}>
-                        <AntDesign name="like1" size={24} color="black" />
-                        <Text style={{color: 'black', fontSize: 15 , fontWeight : '700'}}>{banghi.l}</Text>
+                        <AntDesign name="eye" size={24} color="#173d45" style={{marginRight : 4}} />
+                        <Text style={{color: '#173d45', fontSize: 15 , fontWeight : '500'}}>{handleNumberView(banghi.view)}</Text>
+                        {/* <Text style={{color: 'black', marginLeft: 3, fontSize: 12}}>lượt xem</Text> */}
                     </View>
                 </View>
+                
             </TouchableOpacity>
         </View>
     );

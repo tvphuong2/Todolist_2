@@ -27,10 +27,10 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
         width: 90,
-        alignItems: 'center'
+        alignItems: 'center',
     },
     iconButton: {
-        backgroundColor: 'white',
+        backgroundColor: '#72c2fb',
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
@@ -39,6 +39,6 @@ const styles = StyleSheet.create({
     },
     title: {
         overflow: 'hidden',
-        color: 'white'
+        color: '#339fb7'
     }
 });

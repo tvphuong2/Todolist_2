@@ -46,9 +46,9 @@ export default function BanGhiNoiBo(props:any) {
                 {
                   banghi.view == null ?
                   <Switch
-                  trackColor={{ false: "#767577", true: "#81b0ff" }}
-                  thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
-                  ios_backgroundColor="#3e3e3e"
+                  trackColor={{ false: "#767577", true: "#d7f8ff" }}
+                  thumbColor={isEnabled ? "#339fb7" : "#339fb7"}
+                  ios_backgroundColor="#eeeeee"
                   onValueChange={toggleSwitch}
                   value={isEnabled}
                   />:
@@ -67,24 +67,30 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         flexWrap: "wrap",
-        backgroundColor: '#E5E5E5',
-        height: 100,
+        backgroundColor: 'white',
+        height: 80,
         padding: 20,
-        marginVertical: 8,
-        marginHorizontal: 16,
+        marginVertical: 10,
+        marginHorizontal: 30,
         borderRadius: 20,
+        borderWidth: 1,
+        borderColor: 'gray',
+        alignItems: 'center',
       },
 
       todo: {
         flex: 3,
+        justifyContent: 'center'
       },
       status: {
         flex: 1,
       },
       title: {
-        fontSize: 17,
+        fontSize: 16,
+        fontWeight: '600',
+        color: '#339fb7'
       },
-      timeStart: {
-        paddingTop: 15,
-      }
+      // timeStart: {
+      //   paddingTop: 15,
+      // }
 })

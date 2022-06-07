@@ -8,7 +8,7 @@ import BuocThucHien from '../components/c_button_buocthuchien'
 import * as API from './model/API/api';
 import * as LOCAL from '../screens/model/API/SQLite';
 import Colors from '../constants/Colors';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons, FontAwesome } from '@expo/vector-icons';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'VanHanh'>) {
   const [banGhi, thayBanGhi]:any = useState(null);
@@ -41,36 +41,41 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'VanHanh
         }
       </View>
       <ScrollView style={styles.body}>
-        {
-          dangThucHien? <Text style={{color: 'white', fontSize: 20, marginBottom:30  , fontWeight : 'bold'}}>| {dangThucHien.name}</Text>
+        {/* {
+          dangThucHien? 
+          <View style={{flexDirection: 'row', alignItems: 'center', paddingVertical: 10}}>
+            <MaterialIcons name="work" size={35} color="black" />
+            <Text style={{color: '#339fb7', fontSize: 20, fontWeight : 'bold', marginLeft: 10}}>{dangThucHien.name}</Text>
+          </View>
           :<View></View>
-        }
+        } */}
         
+        <View style={{borderLeftWidth: 5, borderLeftColor: '#339fb7', paddingLeft: 10, marginLeft: 15}}>
         {
           buoc && buoc.map((step:any, i:number) => {
             return (
-              <View style={{marginVertical : 6 , marginRight : 6 , backgroundColor : 'black' , flexDirection : 'row' , alignItems : 'center'}}>
+              <View style={{marginVertical : 6 , marginRight : 6 , backgroundColor : 'white' , flexDirection : 'row' , alignItems : 'center'}}>
                 {
                   (trangThai[step.key] == "1")?
-                  <View style={{borderColor: "#6383A8", borderWidth: 2 , borderRadius : 10 }}>
-                    <BuocThucHien color={'white'} displayMota={"flex"} complete={"false"} trangThai={trangThai} thayTrangThai={thayTrangThai} buoc={step}/>
+                  <View style={[{borderColor: "#6383A8", flexDirection : 'row'}, step.substep == null ? {marginLeft: 20} : {marginLeft: 0}]}>
+                    <FontAwesome name="circle" size={24} color="#339fb7" />
+                    <BuocThucHien color={'black'} displayMota={"flex"} complete={"false"} trangThai={trangThai} thayTrangThai={thayTrangThai} buoc={step}/>
                   </View>
                   : (trangThai[step.key] == "0")?
-                  <View>
-                    <BuocThucHien color={'white'} displayMota={"flex"} complete={"false"}  trangThai={trangThai} thayTrangThai={thayTrangThai} buoc={step}/>
+                  <View style={[{flexDirection : 'row' },  step.substep == null ? {marginLeft: 20} : {marginLeft: 0}]}>
+                    <FontAwesome name="circle-thin" size={24} color="#339fb7" />
+                    <BuocThucHien color={'black'} displayMota={"flex"} complete={"false"}  trangThai={trangThai} thayTrangThai={thayTrangThai} buoc={step}/>
                   </View>
                   :
-                  <View style={{backgroundColor : 'black' , flexDirection : 'row' , alignItems : 'center' , borderRadius : 10}}>
-                     <AntDesign name="checkcircle" size={20} color="tomato" />
-                     <View style={{flex : 1}}>
-                     <BuocThucHien color={'tomato'} displayMota={'none'} complete={"true"} trangThai={trangThai} thayTrangThai={thayTrangThai} buoc={step}/>
-                     </View>
+                  <View style={[{flexDirection : 'row' , alignItems : 'center'}, step.substep == null ? {marginLeft: 20} : {marginLeft: 0}]}>
+                     <FontAwesome name="circle" size={24} color="#ee5093" />
+                     <BuocThucHien color={'#ee5093'} displayMota={'none'} complete={"true"} trangThai={trangThai} thayTrangThai={thayTrangThai} buoc={step}/>
                   </View>
                 }
               </View>
           )})
         }
-        {/* <View style={{marginBottom : 120}}></View> */}
+        </View>
       </ScrollView>
     </View>
   );
@@ -79,23 +84,24 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'VanHanh
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection : 'column' ,
-    backgroundColor : 'black'
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    // flexDirection : 'column' ,
+    backgroundColor : 'white',
+    marginHorizontal: 10
   },
   header: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    left:0,
-    width:'100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection : 'row' ,
-    backgroundColor : 'gray' ,
+    // fontSize: 20,
+    // fontWeight: 'bold',
+    // left:0,
+    // width:'100%',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    // flexDirection : 'row' ,
+    // backgroundColor : 'gray' ,
     marginTop : 32 ,
-    borderBottomEndRadius : 10 ,
-    borderBottomLeftRadius : 10
+    // borderBottomEndRadius : 10 ,
+    // borderBottomLeftRadius : 10
   },
   body: {
     flexDirection: 'column',
@@ -104,9 +110,9 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom:300,
     // justifyContent: 'center',
-    paddingStart:20,
-    backgroundColor : "black" ,
-    marginBottom : 50 ,
+    // paddingStart:20,
+    backgroundColor : "white" ,
+    // marginBottom : 50 ,
   },
   separator: {
     marginVertical: 30,

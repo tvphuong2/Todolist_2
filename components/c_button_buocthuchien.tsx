@@ -20,18 +20,18 @@ export default function DangSuDung(props:any) {
         thayTrangThai(trang_thai)
     }
     return (
-        <View style={{padding : 6 , backgroundColor : 'black'}}>
+        <View style={{paddingLeft: 10, backgroundColor : 'white'}}>
             <TouchableOpacity onPress={thucHien}>
                 {
                     buoc.substep==null ?
-                    <View style={{marginStart:35}}>
-                        <Text style={{color:`${color}` , fontSize : 16 , fontWeight : '600'}} key={buoc.key + "b"}>{TextNameBuoc}</Text>
-                        <Text style={{display:`${displayMota}` , color:'grey'}} key={buoc.key + "bc"}>{buoc.description}</Text>
+                    <View>
+                        <Text style={[{color:`${color}` , fontSize : 16}, trang_thai[buoc.key] == '2' ? {textDecorationLine: 'line-through'} : {textDecorationLine: 'none'}]} key={buoc.key + "b"}>{TextNameBuoc}</Text>
+                        <Text style={{display: displayMota , color:'grey'}} key={buoc.key + "bc"}>{buoc.description}</Text>
                     </View>
                     :
                     <View>
-                        <Text style={{color:`${color}` , fontSize : 16 , fontWeight : '700'}} key={buoc.key + "b"}>{TextNameBuoc}</Text>
-                        <Text style={{display:`${displayMota}`, color: 'grey'}} key={buoc.key + "bc"}>{buoc.description}</Text>
+                        <Text style={[{color:`${color}` , fontSize : 16 , fontWeight : '500'}, trang_thai[buoc.key] == '2' ? {textDecorationLine: 'line-through'} : {textDecorationLine: 'none'}]} key={buoc.key + "b"}>{TextNameBuoc}</Text>
+                        <Text style={{display: displayMota, color: 'grey'}} key={buoc.key + "bc"}>{buoc.description}</Text>
                     </View>
                 }
             </TouchableOpacity>
