@@ -52,3 +52,21 @@ export function ThayTienDo (list_id, progress, hanhdong) {
         progress: progress,
     })
 }
+
+export function DangNhap (name, password, image, email, hanhdong) {
+    return postRequest(`${PATH}/local/setuser`, hanhdong, {
+        name: name,
+        password: password,
+        image: image,
+        email: email
+    })
+}
+
+export function LayTaiKhoan (hanhdong) {
+    return getRequest(`${PATH}/local/getuser`, hanhdong)
+}
+
+export function XoaTaiKhoan (hanhdong) {
+    return getRequest(`${PATH}/local/deleteuser`, hanhdong)
+}
+

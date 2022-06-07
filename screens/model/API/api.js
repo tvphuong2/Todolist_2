@@ -86,3 +86,7 @@ export function APITangLuotTaiVe (list_id, hanhdong) {
         list_id: list_id,
     })
 }
+
+export function APILayTongTinTaiKhoan (hanhdong) {
+    return getRequest(`${PATH}/search/getinfo`, hanhdong)
+}
