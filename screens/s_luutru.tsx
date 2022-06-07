@@ -6,7 +6,7 @@ import { RootTabScreenProps } from '../types';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import * as LOCAL from '../screens/model/API/Local';
 import * as API from '../screens/model/API/api';
-
+import * as FileSystem from '../screens/model/API/FileSystem';
  
 export default function LuuTru({ navigation }: RootTabScreenProps<'KhamPha'>) {
 
@@ -17,6 +17,7 @@ export default function LuuTru({ navigation }: RootTabScreenProps<'KhamPha'>) {
     if (noi_bo) {
       LOCAL.deleteList(ket_qua[key].list_id, (res:any) => {
         thay_ket_qua(ket_qua.filter((item:any) => item.key != key))
+        FileSystem.deleteImg(ket_qua[key].image)
       })
     } else {
       Alert.alert("","Xóa bản ghi thành công!!\n Thật ra là chưa làm cái này :v")

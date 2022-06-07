@@ -14,8 +14,8 @@ export default function BanGhiNoiBo({ navigation, route }: any) {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.illustration}>
-                {banghi && banghi.image !== '' ?
-                    <Image style={styles.img} source={{ uri: LOCAL.layAnh(banghi.image)}} /> :
+                {banghi && banghi.image !== '' && banghi.image !== null ?
+                    <Image style={styles.img} source={{ uri: banghi.image}} /> :
                     <Image style={styles.img} source={require('../assets/images/8.png')} /> 
                 }
             </View>

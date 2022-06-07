@@ -5,6 +5,9 @@ import BinhLuan from '../components/c_view_binhluan'
 import TaoBinhLuan from '../components/c_input_binhluan'
 import * as API from './model/API/api';
 import * as LOCAL from './model/API/Local';
+import RNFS from 'react-native-fs';
+import * as FileSystem from './model/API/FileSystem';
+
 
 export default function BanGhi({ navigation, route }: any) {
     const {banghi} = route.params
@@ -35,9 +38,11 @@ export default function BanGhi({ navigation, route }: any) {
         }
     }
 
-    function download() {
+    async function download() {
+        banghi.image = await FileSystem.downloadImage(banghi.image);
         LOCAL.Download(banghi, (res: any) => {
-            Alert.alert("tải về thành công")
+            console.log(res)
+            Alert.alert("Tải về thành công")
         })
     }
 
@@ -50,8 +55,8 @@ export default function BanGhi({ navigation, route }: any) {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.illustration}>
-                {banghi && banghi.image !== '' ?
-                    <Image style={styles.img} source={{ uri: API.layAnh(banghi.image)}} /> :
+                {banghi && banghi.image !== '' && banghi.image !== null ?
+                    <Image style={styles.img} source={{ uri: LOCAL.layAnh(banghi.image)}} /> :
                     <Image style={styles.img} source={require('../assets/images/8.png')} /> 
                 }
                 <View style={styles.download}>
