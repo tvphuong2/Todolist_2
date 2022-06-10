@@ -4,14 +4,21 @@ import  BanGhi  from '../components/c_button_luutru';
 import {Ionicons, MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
 import { RootTabScreenProps } from '../types';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import * as LOCAL from '../screens/model/API/Local';
+import * as LOCAL from './model/API/Local_List';
 import * as API from '../screens/model/API/api';
 import * as FileSystem from '../screens/model/API/FileSystem';
  
-export default function LuuTru({ navigation }: RootTabScreenProps<'KhamPha'>) {
-
+export default function LuuTru({navigation, route}:any) {
+  const {capNhat} = route.params
   const [ket_qua, thay_ket_qua]:any = useState(null);
   const [noi_bo, trang_noi_bo]:any = useState(true);
+  const [tai_khoan, thay_tai_khoan]:any = useState([]);
+
+  function logout() {
+    // LOCAL.XoaTaiKhoan((res:any)=> {
+    //     thay_tai_khoan(null)
+    // })
+  }
 
   function xoa (key:any) {
     if (noi_bo) {
@@ -38,6 +45,7 @@ export default function LuuTru({ navigation }: RootTabScreenProps<'KhamPha'>) {
 
 	useEffect(()=>{
       layDuLieuNoiBo()
+      LOCAL.LayTaiKhoan(thay_tai_khoan)
     }, []);
 
   function layDuLieuNoiBo() {
@@ -64,7 +72,7 @@ export default function LuuTru({ navigation }: RootTabScreenProps<'KhamPha'>) {
   function hienThiBanGhi(ban_ghi:any) {
     return (
       <Animated.View>
-        <BanGhi index={ban_ghi.index} banghi={ban_ghi.item} navigation={navigation}/>
+        <BanGhi index={ban_ghi.index} banghi={ban_ghi.item} navigation={navigation} capNhat={capNhat.capNhat}/>
       </Animated.View>
     )
   }
@@ -107,7 +115,34 @@ export default function LuuTru({ navigation }: RootTabScreenProps<'KhamPha'>) {
   };
 
 	return (
-        <View style={{flex: 1, paddingTop: 25}}>
+        <View style={{flex: 1, paddingTop: 15}}>
+            {
+              tai_khoan && tai_khoan.email?
+              <View style={{flexDirection: 'row', marginTop: 50, justifyContent: 'center'}}>
+                <TouchableOpacity onPress={() => {navigation.navigate('TaiKhoan')}}>
+                  {
+                    tai_khoan.image && tai_khoan.image !== '' ?
+                    <Image style={styles.ava} source={{ uri: API.layAnh(tai_khoan.image)}}/>
+                    :<Image style={styles.ava} source={require('../assets/images/8.png')} /> 
+                  }
+                </TouchableOpacity>
+                <Text style={{color:'white'}}>         Chào {tai_khoan.name}!         </Text>
+                <TouchableOpacity onPress={logout}>
+                  <MaterialCommunityIcons name="logout" size={35} color="white" />
+                </TouchableOpacity>
+              </View>
+              :
+              <View style={{flexDirection: 'row', marginTop: 50, justifyContent: 'center'}}>
+                <Text style={{color:'white'}}>         Hãy đăng nhập để lưu trữ!         </Text>
+                <TouchableOpacity onPress={() => {navigation.navigate('DangNhap', thay_tai_khoan)}}>
+                  <MaterialCommunityIcons name="login" size={35} color="white" />
+                </TouchableOpacity>
+              </View>
+            }
+          <Text></Text>
+
+
+
           <View style = {{flexDirection: 'row', justifyContent: 'space-between', marginHorizontal:70}}>
             <TouchableHighlight onPress={()=> {layDuLieuNoiBo()}}>  
               {
@@ -115,12 +150,18 @@ export default function LuuTru({ navigation }: RootTabScreenProps<'KhamPha'>) {
                 : <MaterialCommunityIcons name="database" size={35} color="grey" />
               }
             </TouchableHighlight>
-            <TouchableHighlight onPress={()=> {layDuLieuTrucTuyen()}}>
             {
-              noi_bo? <MaterialCommunityIcons name="earth" size={35} color="grey" />
-                : <MaterialCommunityIcons name="earth" size={35} color="white" />
-              }
-            </TouchableHighlight>
+              tai_khoan && tai_khoan.email?
+              <TouchableHighlight onPress={()=> {layDuLieuTrucTuyen()}}>
+              {
+                noi_bo? <MaterialCommunityIcons name="earth" size={35} color="grey" />
+                  : <MaterialCommunityIcons name="earth" size={35} color="white" />
+                }
+              </TouchableHighlight>
+              :
+              <View></View>
+            }
+
           </View>
             <View style={{flex: 0.92}}>
                 <SwipeListView
@@ -202,8 +243,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     borderRadius: 20,
     left: 0,
-},
+  },
   backTextWhite: {
     color: '#FFF',
+  },
+  ava: {
+    width: 40,
+    height: 40,
   },
 });

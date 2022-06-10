@@ -7,17 +7,20 @@ import {
     TouchableHighlight,
     StyleSheet,
 } from 'react-native'
-import * as LOCAL from '../screens/model/API/Local'
+import * as LOCAL from '../screens/model/API/Local_List'
 
 
 export default function BanGhiNoiBo(props:any) {
-  const {index, banghi, navigation} = props;
+  const {index, banghi, navigation, capNhat} = props;
   const [isEnabled, setIsEnabled] = useState(false);
 
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);
-    if (!isEnabled) LOCAL.useList(banghi.list_id, console.log)
-    else LOCAL.cancelList(banghi.list_id, console.log)
+    if (!isEnabled) LOCAL.useList(banghi.list_id, (res:any)=> {
+      LOCAL.setProgress(banghi.list_id, "", (res:any) => {})
+      capNhat()
+    })
+    else LOCAL.cancelList(banghi.list_id, (res:any)=> {capNhat()})
   }
 	
   useEffect(()=>{

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Image, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
 import {Ionicons, MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
-import * as LOCAL from './model/API/SQLite';
+import * as LOCAL from './model/API/Local_List';
 
 export default function BanGhiNoiBo({ navigation, route }: any) {
     const {banghi} = route.params

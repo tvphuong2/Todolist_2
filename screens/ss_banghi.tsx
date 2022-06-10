@@ -4,7 +4,7 @@ import {Ionicons, MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icon
 import BinhLuan from '../components/c_view_binhluan'
 import TaoBinhLuan from '../components/c_input_binhluan'
 import * as API from './model/API/api';
-import * as LOCAL from './model/API/Local';
+import * as LOCAL from './model/API/Local_List';
 import RNFS from 'react-native-fs';
 import * as FileSystem from './model/API/FileSystem';
 

@@ -7,6 +7,15 @@ export function dangNhap (email, matkhau, hanhdong) {
     })
 }
 
+export function dangKy (email, name, password, hanhdong) {
+    return postRequest(`${PATH}/register`, hanhdong, {
+        email: email,
+        name: name,
+        // image: image,
+        password: password,
+    })
+}
+
 export function layAnh(link) {
     var name =link.split("\\")
     name = name[name.length - 1]
@@ -85,4 +94,8 @@ export function APITangLuotTaiVe (list_id, hanhdong) {
     return postRequest(`${PATH}/list/download`, hanhdong, {
         list_id: list_id,
     })
+}
+
+export function APILayTongTinTaiKhoan (hanhdong) {
+    return getRequest(`${PATH}/search/getinfo`, hanhdong)
 }

@@ -8,6 +8,7 @@ const db = SQLite.openDatabase('db.todolist') // returns Database object
 export function reset() {
   db.transaction(tx => {
     tx.executeSql('DROP TABLE IF EXISTS local_list', []);
+    tx.executeSql('DROP TABLE IF EXISTS local_account', [], console.log("Xóa bảng account thành công!"));
   })
 }
 
@@ -32,13 +33,14 @@ export function createLocalList() {
 }
 
 
+
 // Thêm dữ liệu
 export function Download(data, callback) {
   db.transaction(function (tx) {
     console.log('Chèn vào bảng local_list');
     tx.executeSql(
       "INSERT INTO local_list (list_id, steps, image, onl, name, description, progress) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [data.list_id, data.steps, data.image, 0, data.name, data.description, data.progress],
+      [data.list_id, data.steps, data.image, 1, data.name, data.description, data.progress],
       callback('Thêm danh sách thành công'),
       (txObj, error) => console.log('Error ', error)
     );
@@ -49,8 +51,8 @@ export function Download(data, callback) {
 }
 
 export function setProgress(progress, list_id, callback) {
+  return new Promise((resolve, reject) => {
     db.transaction(function (tx) {
-      console.log('Chèn vào bảng local_list');
       tx.executeSql(
         `UPDATE local_list SET progress = ? WHERE list_id = ?`, [progress, list_id],
         callback('thay tien do thanh cong'),
@@ -60,7 +62,10 @@ export function setProgress(progress, list_id, callback) {
       //       console.log(JSON.stringify(rows))
       //     );
     });
+  }); 
   }
+
+
   
 
 
@@ -80,7 +85,6 @@ export function getAll(callback) {
       )
     })
   })
-
 }
 
 export function getList(list_id, callback) {
@@ -98,12 +102,13 @@ export function getList(list_id, callback) {
   })
 }
 
+
+
 export function getProgress(callback) {
     return new Promise((resolve, reject) => {
-      var on = 1;
       db.transaction(function (tx) {
         tx.executeSql(
-          "SELECT * FROM local_list WHERE onl = ?", [on],
+          "SELECT * FROM local_list WHERE onl = '1'", [],
           (_, result) => {
             callback(result.rows._array);
             resolve(result.rows._array);
@@ -131,6 +136,8 @@ export function deleteList(list_id, callback) {
         })
       })
 } 
+
+ 
 
 
 // Cập nhật dữ liệu
@@ -170,4 +177,5 @@ export function layAnh(link) {
     name = name[name.length - 1]
     return PATH + "/img/" + name
 }
+
 

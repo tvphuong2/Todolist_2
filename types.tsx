@@ -20,6 +20,9 @@ export type RootStackParamList = {
   ChuDe: any;
   BanGhi:any;
   BanGhiNoiBo:any;
+  TaiKhoan:any;
+  DangNhap:any;
+  DangKy: any;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -31,8 +34,6 @@ export type RootTabParamList = {
   VanHanh: any;
   LuuTru: any;
   KhamPha: any;
-  ThongBao: any;
-  TaiKhoan: any;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<

@@ -3,14 +3,14 @@ import { Feather } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import * as LOCAL from '../screens/model/API/Local_List'
 
-export default function Buoc(props:any) {
-    const {trangThai, thayTrangThai, buoc, stt} = props;
+export default function BuocCon(props:any) {
+    const {trangThai, thayTrangThai, buoc} = props;
     var trang_thai = [...trangThai]
 
     function thucHien() {
         if      (trang_thai[buoc.key] == "0")   trang_thai[buoc.key] = "1"
         else if (trang_thai[buoc.key] == "1")   trang_thai[buoc.key] = "2"
-        else                                    trang_thai[buoc.key] = "1"
+        else                                    trang_thai[buoc.key] = "0"
         thayTrangThai(trang_thai)
     }
 
@@ -20,13 +20,17 @@ export default function Buoc(props:any) {
                 (trang_thai[buoc.key] == "0") ?
                     <TouchableOpacity onPress={thucHien} style={styles.chua_lam}>
                         <View>
-                            <Text style={{color:'gray'}} key={buoc.key + "b"}>{stt} {buoc.name}</Text>
+                            <Text style={{color:'white'}} key={buoc.key + "b"}>{buoc.name}</Text>
+                            {(buoc.description)? 
+                                <Text style={{color:'grey'}} key={buoc.key + "bc"}>{buoc.description}</Text>
+                                : <View></View>
+                            }
                         </View>
                     </TouchableOpacity>
                 : (trang_thai[buoc.key] == "1") ?
                     <TouchableOpacity onPress={thucHien} style={styles.dang_lam}>
                         <View>
-                            <Text style={{color:'white'}} key={buoc.key + "b"}>{stt} {buoc.name}</Text>
+                            <Text style={{color:'white'}} key={buoc.key + "b"}>{buoc.name}</Text>
                             {(buoc.description)? 
                                 <Text style={{color:'grey'}} key={buoc.key + "bc"}>{buoc.description}</Text>
                                 : <View></View>
@@ -36,8 +40,8 @@ export default function Buoc(props:any) {
                 :
                     <TouchableOpacity onPress={thucHien} style={styles.xong}>
                         <View>
-                        <Text style={{color:'pink'}} key={buoc.key + "b"}>{stt} {buoc.name.slice(0, 40)} ...</Text>
-                            <View style={styles.gach_ngang}></View>
+                            <Text style={{color:'pink'}} key={buoc.key + "b"}>√ {buoc.name.slice(0, 40)} ...</Text>
+                            {/* <View style={styles.gach_ngang}></View> */}
                         </View>
                     </TouchableOpacity>
             }

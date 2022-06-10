@@ -1,5 +1,5 @@
 import * as FileSystem from 'expo-file-system';
-import * as LOCAL from './Local';
+import * as LOCAL from './Local_List';
 
 const imgDir = FileSystem.cacheDirectory + 'image/';
 
