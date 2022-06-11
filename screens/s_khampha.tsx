@@ -7,7 +7,9 @@ import TimKiem from '../components/c_input_timkiem';
 import KetQua from '../components/c_view_ketquatimkiem';
 import { RootTabScreenProps } from '../types';
 import * as API from './model/API/api';
-import * as LOCAL from './model/API/Local_Account';
+import * as LOCALLIST from './model/API/Local_List';
+import * as LOCALACCOUNT from './model/API/Local_Account';
+
 
 export default function KhamPha({ navigation }: RootTabScreenProps<'KhamPha'>) {
   const [tu_khoa, thay_tu_khoa] = useState('');
@@ -15,7 +17,7 @@ export default function KhamPha({ navigation }: RootTabScreenProps<'KhamPha'>) {
   const [tai_khoan, thay_tai_khoan]:any = useState([]);
 
   useEffect(() => {
-    LOCAL.LayTaiKhoan(thay_tai_khoan)
+    LOCALACCOUNT.LayTaiKhoan(thay_tai_khoan)
   }, [])
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export default function KhamPha({ navigation }: RootTabScreenProps<'KhamPha'>) {
   }, [tai_khoan])
 
   function logout() {
-    LOCAL.XoaTaiKhoan((res:any)=> {
+    LOCALACCOUNT.XoaTaiKhoan((res:any)=> {
         thay_tai_khoan(null)
     })
   }

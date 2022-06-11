@@ -4,7 +4,8 @@ import  BanGhi  from '../components/c_button_luutru';
 import {Ionicons, MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
 import { RootTabScreenProps } from '../types';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import * as LOCAL from './model/API/Local_List';
+import * as LOCALLIST from './model/API/Local_List';
+import * as LOCALACCOUNT from './model/API/Local_Account';
 import * as API from '../screens/model/API/api';
 import * as FileSystem from '../screens/model/API/FileSystem';
  
@@ -22,7 +23,7 @@ export default function LuuTru({navigation, route}:any) {
 
   function xoa (key:any) {
     if (noi_bo) {
-      LOCAL.deleteList(ket_qua[key].list_id, (res:any) => {
+      LOCALLIST.deleteList(ket_qua[key].list_id, (res:any) => {
         thay_ket_qua(ket_qua.filter((item:any) => item.key != key))
         FileSystem.deleteImg(ket_qua[key].image)
       })
@@ -36,7 +37,7 @@ export default function LuuTru({navigation, route}:any) {
     if (noi_bo) {
       Alert.alert("","Tải bản ghi thành công!!\n Thật ra là chưa làm cái này :v")
     } else {
-      LOCAL.Download(ket_qua[key], (res:any) => {
+      LOCALLIST.Download(ket_qua[key], (res:any) => {
         Alert.alert("","Đã tải bản ghi về")
       })
     }
@@ -45,12 +46,18 @@ export default function LuuTru({navigation, route}:any) {
 
 	useEffect(()=>{
       layDuLieuNoiBo()
-      LOCAL.LayTaiKhoan(thay_tai_khoan)
+      LOCALACCOUNT.LayTaiKhoan(thay_tai_khoan);
+      const willFocusSubscription = navigation.addListener('focus', () => {
+        layDuLieuNoiBo()
+        LOCALACCOUNT.LayTaiKhoan(thay_tai_khoan);
+      });
+
+    return willFocusSubscription;
     }, []);
 
   function layDuLieuNoiBo() {
     trang_noi_bo(true)
-    LOCAL.getAll((res:any) => {
+    LOCALLIST.getAll((res:any) => {
       for (var i = 0; i < res.length; i++) {
         res[i]['key'] = i
       }

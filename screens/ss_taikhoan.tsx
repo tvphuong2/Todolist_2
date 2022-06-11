@@ -4,7 +4,8 @@ import {Ionicons, MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icon
 import PasswordInput from '../components/c_input_matkhau';
 import { RootTabScreenProps } from '../types';
 import * as API from './model/API/api';
-import * as LOCAL from './model/API/Local_List';
+import * as LOCALLIST from './model/API/Local_List';
+import * as LOCALACCOUNT from './model/API/Local_Account';
 const {width, height} = Dimensions.get('window');
 
 export default function Dangnhap({ navigation }: any) {
@@ -12,7 +13,7 @@ export default function Dangnhap({ navigation }: any) {
     const [thong_tin, thayThongTin]:any = useState();
 
     useEffect(() => {
-        LOCAL.LayTaiKhoan((res:any) =>{
+        LOCALACCOUNT.LayTaiKhoan((res:any) =>{
             thayTaiKhoan(res)
             API.APILayTongTinTaiKhoan(thayThongTin)
         })

@@ -28,7 +28,8 @@ import LinkingConfiguration from './LinkingConfiguration';
 
 import { useState, useEffect } from 'react';
 import * as API from '../screens/model/API/api';
-import * as LOCAL from '../screens/model/API/Local_List';
+import * as LOCALLIST from '../screens/model/API/Local_List';
+import * as LOCALACCOUNT from '../screens/model/API/Local_Account';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -76,11 +77,11 @@ function BottomTabNavigator() {
   const [banGhi, thayBanGhi]:any = useState(null);
 
   function capNhat() {
-    LOCAL.getProgress(thayBanGhi)
+    LOCALLIST.getProgress(thayBanGhi)
   }
 
   useEffect(() => {
-    LOCAL.LayTaiKhoan((res:any) => {
+    LOCALACCOUNT.LayTaiKhoan((res:any) => {
       console.log(res)
       if (res.email) {
         console.log(res)

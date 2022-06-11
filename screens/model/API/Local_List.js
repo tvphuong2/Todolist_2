@@ -7,8 +7,8 @@ const db = SQLite.openDatabase('db.todolist') // returns Database object
 // Xóa tất cả bản ghi
 export function reset() {
   db.transaction(tx => {
-    tx.executeSql('DROP TABLE IF EXISTS local_list', []);
     tx.executeSql('DROP TABLE IF EXISTS local_account', [], console.log("Xóa bảng account thành công!"));
+    tx.executeSql('DROP TABLE IF EXISTS local_list', []);
   })
 }
 

@@ -5,16 +5,14 @@ import { PATH } from './api_chung';
 const db = SQLite.openDatabase('db.todolist') // returns Database object
 
 
-
 // Tác giả
 export function createAccount() {
     db.transaction(tx => {
         tx.executeSql(
             'CREATE TABLE IF NOT EXISTS local_account(' +
-            'account_id integer NOT NULL PRIMARY KEY, ' +
             'name text NOT NULL, ' +
             'image text DEFAULT NULL, ' +
-            'email text NOT NULL, ' +
+            'email text NOT NULL UNIQUE, ' +
             'password text NOT NULL ' +
             ');',
             [],
@@ -25,11 +23,11 @@ export function createAccount() {
   }
   
   
-  export function deleteAccount(account_id, callback) {
+  export function XoaTaiKhoan(email, callback) {
     return new Promise((resolve, reject) => {
         db.transaction(function (tx) {
           tx.executeSql(
-            'DELETE FROM local_account WHERE account_id=?;', [account_id],
+            'DELETE FROM local_account WHERE email=?;', [email],
             (_, result) => {
               callback(result.rows._array);
               resolve(result.rows._array);
@@ -57,28 +55,23 @@ export function createAccount() {
   
   export function DangNhap(data, callback) {
     return new Promise((resolve, reject) => {
-      console.log('Chèn vào bảng local_account11111');
+      console.log('Xóa dữ liệu trong local_account');
       db.transaction(function (tx) {
+        tx.executeSql(
+          'DELETE FROM local_account', [],
+          console.log("Xóa dữ liệu account thành công!"),
+          (_, error) => console.log(error),
+        )
         console.log('Chèn vào bảng local_account');
         tx.executeSql(
-          "INSERT INTO local_account (account_id, name, image, email, password) VALUES (?, ?, ?, ?, ?);",
-          [data.account_id, data.name, data.image, data.email, data.password],
+          "INSERT INTO local_account ( name, image, email, password) VALUES (?, ?, ?, ?);",
+          [data.name, data.image, data.email, data.password],
           (_, result) => {
-            // console.log(result.rows._array);
             callback(result.rows._array);
             resolve(result.rows._array);
           },
           (_, error) => reject(error)
         );
-        // tx.executeSql(
-        //   'SELECT * FROM local_account;', [],
-        //   (_, result) => {
-        //     // console.log(result.rows._array);
-        //     callback(result.rows._array);
-        //     resolve(result.rows._array);
-        //   },
-        //   (_, error) => reject(error),
-        // );
       });
     })
   }

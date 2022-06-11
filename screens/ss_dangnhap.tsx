@@ -17,6 +17,7 @@ export default function Dangnhap({ navigation, route }:any) {
 
     const dangNhap = () => {
         console.log("dang dang nhap")
+        LOCALACCOUNT.createAccount();
         API.dangNhap(email, password, (res: any) => {
             console.log(res)
             if (res.status != "thanhcong") {

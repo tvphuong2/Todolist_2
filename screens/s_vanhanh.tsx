@@ -15,11 +15,15 @@ export default function TabOneScreen({navigation, route}:any) {
   const [banGhi, thayBanGhi]:any = useState(null);
   
   useEffect(() => {
-    // API.dangNhap("tvphuong10@gmail.com","123456",console.log);
-    // LOCAL.reset();
-    LOCALACCOUNT.createAccount();
+    // LOCALLIST.reset();
+    // LOCALACCOUNT.createAccount();
     LOCALLIST.createLocalList();
-    LOCALLIST.getProgress(thayBanGhi) 
+    LOCALLIST.getProgress(thayBanGhi); 
+    const willFocusSubscription = navigation.addListener('focus', () => {
+      LOCALLIST.getProgress(thayBanGhi); 
+    });
+
+    return willFocusSubscription;
   }, [])
 
   // useEffect(() => {
