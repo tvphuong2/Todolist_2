@@ -1,140 +1,101 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Image, TextInput, Dimensions, TouchableOpacity, Text, View, Alert, Modal} from 'react-native';
-import {Ionicons, MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
-import PasswordInput from '../components/c_input_matkhau';
-import { RootTabScreenProps } from '../types';
-import * as API from './model/API/api';
-import * as LOCALLIST from './model/API/Local_List';
-import * as LOCALACCOUNT from './model/API/Local_Account';
-const {width, height} = Dimensions.get('window');
+import React, { useRef } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { Modalize } from 'react-native-modalize';
+// import faker from 'faker';
 
-export default function Dangnhap({ navigation }: any) {
-    const [tai_khoan, thayTaiKhoan]:any = useState('');
-    const [thong_tin, thayThongTin]:any = useState();
+export default function FixedContent () {
+  const modalizeRef = useRef<Modalize>(null);
 
-    useEffect(() => {
-        LOCALACCOUNT.LayTaiKhoan((res:any) =>{
-            thayTaiKhoan(res)
-            API.APILayTongTinTaiKhoan(thayThongTin)
-        })
-    }, [])
+  const openModal = () => {
+    if (modalizeRef.current) {
+        modalizeRef.current?.open();
+    }
+  };
 
+  const closeModal = () => {
+    if (modalizeRef.current) {
+      modalizeRef.current?.close();
+    }
+  };
     return (
-        <View style={styles.container}>
-            <View style={{marginTop: 50, justifyContent: 'center'}}>
-                {tai_khoan && tai_khoan.image && tai_khoan.image !== '' ?
-                    <Image style={styles.logo} source={{ uri: API.layAnh(tai_khoan.image)}} /> :
-                    <Image style={styles.logo} source={require('../assets/images/8.png')} /> 
-                }
-                <Text>         Chào {tai_khoan.name}!         </Text>
-                {
-                    thong_tin?
-                    <View>
-                        <Text>Views: {thong_tin.views? thong_tin.views: 0}</Text>
-                        <Text>Download: {thong_tin.download? thong_tin.download: 0}</Text>
-                        <Text>List count: {thong_tin.count}</Text>
-                    </View>
-                    :
-                    <View></View>
-                }
-            </View>
-        </View>
-        
-    )
+      <View style={s.content}>
+        <Text style={s.content__subheading}>{'Last step'.toUpperCase()}</Text>
+        <Text style={s.content__heading}>Send the message?</Text>
+        <Text style={s.content__description}></Text>
+        <TextInput style={s.content__input} placeholder="Type your username" />
+
+        <TouchableOpacity style={s.content__button} activeOpacity={0.9} onPress={closeModal}>
+          <Text style={s.content__buttonText}>{'Send'.toUpperCase()}</Text>
+        </TouchableOpacity>
+        <Modalize ref={modalizeRef} adjustToContentHeight>
+      </Modalize>
+      </View>
+      
+    );
+
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        height: height,
-        width: width,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white'
-    },
-    logo: {
-        width: 100,
-        height: 100
-    },
-    header: {
-        textAlign: 'center',
-        color: '#202b4d',
-        fontSize: 30,
-        marginBottom: 20,
-        marginTop: 20
-    },
-    inputView: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    input: {
-        width: 350,
-        height: 50,
-        borderBottomWidth: 1,
-        borderColor: 'gray',
-        paddingLeft: 10,
-        backgroundColor: 'white',
-        marginBottom: 20
-    },
-    icon: {
-        position: 'absolute',
-        right: 10
-    },
-    btn: {
-        width: 350,
-        height: 50,
-        borderRadius: 5,
-        backgroundColor: '#ee4d2d',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    btnText: {
-        color: 'white',
-        fontSize: 16
-    },
-    footer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: 340
-    },
-    linkText: {
-        marginTop: 10,
-        textDecorationLine: 'underline',
-        color: '#202b4d'
-    },
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 5,
-    paddingTop: 20,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-        width: 0,
-        height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
-    },
-    button: {
-    flexDirection: 'row',
-    },
-    buttonModal: {
-    borderWidth: 1,
-    borderColor: '#f1f1f1',
+const s = StyleSheet.create({
+  content: {
+    padding: 20,
+  },
+
+  content__icon: {
+    width: 32,
+    height: 32,
+
+    marginBottom: 20,
+  },
+
+  content__subheading: {
+    marginBottom: 2,
+
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#ccc',
+  },
+
+  content__heading: {
+    fontSize: 24,
+    fontWeight: '600',
+    color: '#333',
+  },
+
+  content__description: {
+    paddingTop: 10,
+    paddingBottom: 10,
+
+    fontSize: 15,
+    fontWeight: '200',
+    lineHeight: 22,
+    color: '#666',
+  },
+
+  content__input: {
+    paddingVertical: 15,
+    marginBottom: 20,
+
     width: '100%',
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center'
-    },
-    modalText: {
-    marginBottom: 15,
-    color: 'gray'
-    }
-})
+
+    borderWidth: 1,
+    borderColor: 'transparent',
+    borderBottomColor: '#cdcdcd',
+    borderRadius: 6,
+  },
+
+  content__button: {
+    paddingVertical: 15,
+
+    width: '100%',
+
+    backgroundColor: '#333',
+    borderRadius: 6,
+  },
+
+  content__buttonText: {
+    color: '#fff',
+    fontSize: 15,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+});

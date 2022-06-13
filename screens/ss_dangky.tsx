@@ -36,7 +36,7 @@ export default function DangKy({ navigation }:any) {
     return (
         <View style={styles.container}>
             <View>
-                <Image style={styles.logo} source={require('../assets/images/8.png')} />
+                <Image style={styles.logo} source={require('../assets/images/logo.png')} />
             </View>
             <View>
                 <Text style={styles.header}>Đăng ký</Text>

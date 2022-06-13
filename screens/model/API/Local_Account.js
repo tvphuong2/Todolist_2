@@ -23,11 +23,11 @@ export function createAccount() {
   }
   
   
-  export function XoaTaiKhoan(email, callback) {
+  export function DangXuat(callback) {
     return new Promise((resolve, reject) => {
         db.transaction(function (tx) {
           tx.executeSql(
-            'DELETE FROM local_account WHERE email=?;', [email],
+            'DELETE FROM local_account', [],
             (_, result) => {
               callback(result.rows._array);
               resolve(result.rows._array);

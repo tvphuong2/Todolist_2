@@ -1,5 +1,5 @@
 import { Platform, StyleSheet, TouchableOpacity, ScrollView, Image, AsyncStorage } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {Ionicons, MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
 import { Text, View } from '../components/Themed';
 import ChuDe from '../components/c_button_chude';
@@ -9,6 +9,8 @@ import { RootTabScreenProps } from '../types';
 import * as API from './model/API/api';
 import * as LOCALLIST from './model/API/Local_List';
 import * as LOCALACCOUNT from './model/API/Local_Account';
+import { Modalize } from 'react-native-modalize';
+
 
 
 export default function KhamPha({ navigation }: RootTabScreenProps<'KhamPha'>) {
@@ -17,35 +19,60 @@ export default function KhamPha({ navigation }: RootTabScreenProps<'KhamPha'>) {
   const [tai_khoan, thay_tai_khoan]:any = useState([]);
 
   useEffect(() => {
-    LOCALACCOUNT.LayTaiKhoan(thay_tai_khoan)
+    LOCALACCOUNT.LayTaiKhoan(thay_tai_khoan);
+    const willFocusSubscription = navigation.addListener('focus', () => {
+      LOCALACCOUNT.LayTaiKhoan(thay_tai_khoan);
+    });
+
+  return willFocusSubscription;
   }, [])
 
   useEffect(() => {
-    API.APITimKiem(tu_khoa, thay_ket_qua)
+    API.APITimKiem(tu_khoa, thay_ket_qua);
+    const willFocusSubscription = navigation.addListener('focus', () => {
+      API.APITimKiem(tu_khoa, thay_ket_qua);
+    });
+
+  return willFocusSubscription;
   }, [tu_khoa])
 
   useEffect(() => {
-    API.APITimKiem(tu_khoa, thay_ket_qua)
+    API.APITimKiem(tu_khoa, thay_ket_qua);
+    const willFocusSubscription = navigation.addListener('focus', () => {
+      API.APITimKiem(tu_khoa, thay_ket_qua);
+    });
+
+  return willFocusSubscription;
   }, [tai_khoan])
 
   function logout() {
-    LOCALACCOUNT.XoaTaiKhoan((res:any)=> {
+    LOCALACCOUNT.DangXuat((res:any)=> {
         thay_tai_khoan(null)
     })
   }
+
+  const modalizeRef = [];
+
+  const onOpen = () => {
+    modalizeRef.openModal();
+  };
 
   return (
     <ScrollView>
         {
           tai_khoan && tai_khoan.email?
           <View style={{flexDirection: 'row', marginTop: 50, justifyContent: 'center'}}>
-            <TouchableOpacity onPress={() => {navigation.navigate('TaiKhoan')}}>
+            {/* <TouchableOpacity onPress={() => {navigation.navigate('TaiKhoan')}}> */}
+            <TouchableOpacity onPress={onOpen}>
               {
                 tai_khoan.image && tai_khoan.image !== '' ?
                 <Image style={styles.ava} source={{ uri: API.layAnh(tai_khoan.image)}}/>
                 :<Image style={styles.ava} source={require('../assets/images/8.png')} /> 
               }
             </TouchableOpacity>
+            {/* <Modalize ref={modalizeRef}>
+              <Text>aaa</Text>
+            </Modalize> */}
             <Text>         Chào {tai_khoan.name}!         </Text>
             <TouchableOpacity onPress={logout}>
               <MaterialCommunityIcons name="logout" size={35} color="white" />
