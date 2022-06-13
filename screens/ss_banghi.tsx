@@ -56,7 +56,7 @@ export default function BanGhi({ navigation, route }: any) {
                 }
                 <View style={styles.download}>
                     <TouchableOpacity onPress={download}>
-                        <MaterialCommunityIcons name="download" size={35} color="white" />
+                        <MaterialCommunityIcons name="download" size={30} color="white" />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -82,14 +82,15 @@ export default function BanGhi({ navigation, route }: any) {
                         return (
                             <View>
                                 <Text style={styles.mainStep} key={`aa${i}`}>
-                                    {i + 1}. {step.name}: <Text style={styles.desc}>{step.description}</Text>
+                                    {i + 1}. {step.name} 
                                 </Text>
+                                <Text style={styles.desc}>{step.description}</Text>
                                 {
                                     step.substep && step.substep.map((child: any, j:number) => {
                                         return (
                                             <Text style={styles.childStep} key={`bb${j}`}>
-                                            {child.name}: <Text key={`cc${j}`} style={styles.desc}>{child.description}</Text>
-                                        </Text>
+                                            {child.name} <Text key={`cc${j}`} style={[styles.desc, {paddingLeft: 45}]}>{child.description}</Text>
+                                            </Text>
                                         )
                                     })
                                 }
@@ -105,13 +106,13 @@ export default function BanGhi({ navigation, route }: any) {
             <View style={styles.review}>
                 <View style={styles.reviewHeader}>
                     <View style={styles.viewAll}>
-                        <Text style={{color: '#ee4d2d', fontSize: 20}}>Đánh giá và bình luận </Text>
-                        <Text><MaterialIcons name="navigate-next" size={20} color="#ee4d2d" /></Text>
+                        <Text style={{color: '#339fb7', fontSize: 20}}>Đánh giá và bình luận </Text>
+                        <Text><MaterialIcons name="navigate-next" size={20} color="#339fb7" /></Text>
                     </View>
                     <TouchableOpacity onPress={nhanThich}>
                     {thich ?
-                        <MaterialCommunityIcons name="thumb-up" size={35} color="black" /> :
-                        <MaterialCommunityIcons name="thumb-up-outline" size={35} color="black" /> 
+                        <MaterialCommunityIcons name="thumb-up" size={30} color="#72c2fb" /> :
+                        <MaterialCommunityIcons name="thumb-up-outline" size={30} color="#72c2fb" /> 
                     }
                 </TouchableOpacity>
                 </View>
@@ -156,18 +157,22 @@ const styles = StyleSheet.create({
 		paddingBottom: 20,
 	},
 	mainTitle: {
-		fontSize: 32,
+		fontSize: 30,
+        fontWeight: '600',
 		paddingBottom: 7,
+        color: '#339fb7'
 	},
 	desc: {
 		color: '#909090',
 		fontWeight: 'normal',
+        paddingLeft: 20, 
 	},
     download: {
         position: 'absolute',
         top: 10,
         right: 10,
-        backgroundColor: '#cfcfcf',
+        backgroundColor: '#339fb7',
+        padding: 5,
         borderRadius: 20
     },
 	info: {
@@ -200,15 +205,17 @@ const styles = StyleSheet.create({
 	step: {
 		paddingHorizontal: 10,
 		paddingVertical: 15,
-		lineHeight: 18,
+		// lineHeight: 18,
 	},
 	mainStep: {
-		fontWeight: 'bold',
-		lineHeight: 30,
+		// fontWeight: 'bold',
+		// lineHeight: 30,
+        // paddingBottom: 10
 	},
 	childStep: {
-		fontWeight: 'bold',
+		// fontWeight: 'bold',
 		paddingLeft: 30,
+        paddingBottom: 10,
 		color: '#000000',
 	},
 	back: {
@@ -237,7 +244,8 @@ const styles = StyleSheet.create({
         fontWeight: '700',
     },
     viewAll: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center'
     }
   });
   

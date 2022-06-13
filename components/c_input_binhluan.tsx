@@ -60,13 +60,13 @@ const styles = StyleSheet.create({
         marginLeft: 10
     },
     input: {
-        width: 320,
+        width: 330,
         height: 50,
         marginTop: 10,
         paddingLeft: 10,
         borderWidth: 1,
         borderColor: '#B5B5B5',
-        borderRadius: 5,
+        borderRadius: 25,
         backgroundColor: 'white'
     },
     btn: {
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     btnCreate: {
-        backgroundColor: '#ee4d2d',
+        backgroundColor: '#339fb7',
         width: 60,
         height: 30,
         borderRadius: 5,

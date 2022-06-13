@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, Animated, Dimensions, StyleSheet, Text, ScrollView, TouchableOpacity, TouchableHighlight, Alert } from 'react-native';
+import { View, Image, Animated, Dimensions, StyleSheet, Text, ScrollView, TouchableOpacity, TouchableHighlight, Alert, ImageBackground } from 'react-native';
 import  BanGhi  from '../components/c_button_luutru';
-import {Ionicons, MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
+import {AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
 import { RootTabScreenProps } from '../types';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import * as LOCAL from '../screens/model/API/SQLite';
@@ -113,55 +113,66 @@ export default function LuuTru({navigation, route}:any) {
   };
 
 	return (
-        <View style={{flex: 1, paddingTop: 15}}>
+        <View style={{flex: 1, }}>
+          <ImageBackground 
+            source={{uri: 'https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg?w=2000'}} 
+            resizeMode="cover" 
+          >
             {
               tai_khoan && tai_khoan.email?
-              <View style={{flexDirection: 'row', marginTop: 50, justifyContent: 'center'}}>
-                <TouchableOpacity onPress={() => {navigation.navigate('TaiKhoan')}}>
-                  {
-                    tai_khoan.image && tai_khoan.image !== '' ?
-                    <Image style={styles.ava} source={{ uri: API.layAnh(tai_khoan.image)}}/>
-                    :<Image style={styles.ava} source={require('../assets/images/8.png')} /> 
-                  }
-                </TouchableOpacity>
-                <Text style={{color:'white'}}>         Chào {tai_khoan.name}!         </Text>
-                <TouchableOpacity onPress={logout}>
-                  <MaterialCommunityIcons name="logout" size={35} color="white" />
+              <View style={{marginBottom: 15}}>
+                <View style={{flexDirection: 'row', paddingTop: 50, justifyContent: 'center', alignItems: 'center'}}>
+                  <TouchableOpacity onPress={() => {navigation.navigate('TaiKhoan')}}>
+                    {
+                      tai_khoan.image && tai_khoan.image !== '' ?
+                      <Image style={styles.ava} source={{ uri: API.layAnh(tai_khoan.image)}}/>
+                      :<Image style={styles.ava} source={require('../assets/images/8.png')} /> 
+                    }
+                  </TouchableOpacity>
+                  <Text style={{color: '#339fb7', fontWeight: '600', fontSize: 20, marginVertical: 15}}>Chào {tai_khoan.name}!</Text>
+                </View>
+                <TouchableOpacity style={styles.logout} onPress={logout}>
+                  <AntDesign name="logout" size={30} color="white" />
                 </TouchableOpacity>
               </View>
               :
-              <View style={{flexDirection: 'row', marginTop: 50, justifyContent: 'center'}}>
-                <Text style={{color:'white'}}>         Hãy đăng nhập để lưu trữ!         </Text>
+              <View style={{flexDirection: 'row', marginVertical: 30, marginRight: 10, alignItems: 'center', justifyContent: 'flex-end'}}>
+                <Text style={{color:'#339fb7', fontWeight: '700', marginRight: 10}}>Hãy đăng nhập để lưu trữ!</Text>
                 <TouchableOpacity onPress={() => {navigation.navigate('DangNhap', thay_tai_khoan)}}>
-                  <MaterialCommunityIcons name="login" size={35} color="white" />
+                  <AntDesign name="login" size={30} color="#339fb7" />
                 </TouchableOpacity>
               </View>
             }
-          <Text></Text>
 
 
-
-          <View style = {{flexDirection: 'row', justifyContent: 'space-between', marginHorizontal:70}}>
-            <TouchableHighlight onPress={()=> {layDuLieuNoiBo()}}>  
-              {
-                noi_bo? <MaterialCommunityIcons name="database" size={35} color="white" />
-                : <MaterialCommunityIcons name="database" size={35} color="grey" />
-              }
-            </TouchableHighlight>
+          <View style = {styles.menu}>
             {
-              tai_khoan && tai_khoan.email?
-              <TouchableHighlight onPress={()=> {layDuLieuTrucTuyen()}}>
-              {
-                noi_bo? <MaterialCommunityIcons name="earth" size={35} color="grey" />
-                  : <MaterialCommunityIcons name="earth" size={35} color="white" />
-                }
-              </TouchableHighlight>
-              :
-              <View></View>
+               tai_khoan && tai_khoan.email && noi_bo? 
+               <TouchableOpacity style={styles.menuItemActive} onPress={()=> {layDuLieuNoiBo()}}>  
+                 <Text style={styles.menuTextActive}>Bộ nhớ</Text>
+               </TouchableOpacity> :
+              noi_bo ?
+              <TouchableOpacity style={[styles.menuItemActive, {width: '97%'}]} onPress={()=> {layDuLieuNoiBo()}}>  
+                <Text style={styles.menuTextActive}>Bộ nhớ</Text>
+              </TouchableOpacity>
+              : <TouchableOpacity style={styles.menuItem} onPress={()=> {layDuLieuNoiBo()}}>  
+                <Text style={styles.menuText}>Bộ nhớ</Text>
+                </TouchableOpacity>
+            }
+            {
+              tai_khoan && tai_khoan.email && noi_bo ?
+                <TouchableOpacity style={styles.menuItem} onPress={()=> {layDuLieuTrucTuyen()}}>
+                  <Text style={styles.menuText}>Máy chủ</Text>
+                </TouchableOpacity>
+              : tai_khoan && tai_khoan.email && !noi_bo ?
+                  <TouchableOpacity style={styles.menuItemActive} onPress={()=> {layDuLieuTrucTuyen()}}>
+                     <Text style={styles.menuTextActive}>Máy chủ</Text>
+                  </TouchableOpacity>
+              : <View></View>
             }
 
           </View>
-            <View style={{flex: 0.92}}>
+            <View style={styles.body}>
                 <SwipeListView
                   data={ket_qua}
                   renderItem={hienThiBanGhi}
@@ -175,6 +186,7 @@ export default function LuuTru({navigation, route}:any) {
                   useNativeDriver={false}
                 />
             </View>
+          </ImageBackground>
         </View>  
 	);
 }
@@ -184,13 +196,46 @@ const styles = StyleSheet.create({
 		flex: 1,
     paddingTop: 20,
 	},
-	menu: {
+  logout: {
     position: 'absolute',
-    top: 40,
-    left: 40,
-    width: 100,
-    height: 100,
-    backgroundColor: 'red'
+    top: 25,
+    right: 10,
+    backgroundColor: '#339fb7',
+    padding: 5,
+    borderRadius: 20
+  },
+	menu: {
+    flexDirection: 'row', 
+    marginHorizontal:20,
+    backgroundColor: 'white',
+    height: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20
+  },
+  menuItemActive: {
+    width: '47%',
+    height: 32,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#339fb7',
+    borderRadius: 16
+  },
+  menuItem: {
+    width: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  menuTextActive: {
+    color: 'white', 
+    fontWeight: '800'   
+  },
+  menuText: {
+    color: '#339fb7',
+    fontWeight: '800'
   },
   add: {
     color: "#4682B4",
@@ -199,54 +244,76 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     marginLeft:150
   },
-  typeStorage: {
-    paddingHorizontal: 15,
-  },
-  rowFront: {
-    alignItems: 'center',
-    backgroundColor: '#CCC',
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
-    justifyContent: 'center',
-    height: 50,
-  },
+  // rowFront: {
+  //   alignItems: 'center',
+  //   backgroundColor: '#CCC',
+  //   borderBottomColor: 'black',
+  //   borderBottomWidth: 1,
+  //   justifyContent: 'center',
+  //   height: 50,
+  // },
   rowBack: {
-      alignItems: 'center',
-      backgroundColor: 'red',
-      flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      flexWrap: "wrap",
-      height: 100,
-      marginVertical: 8,
-      marginHorizontal: 16,
-      borderRadius: 20,
-  },
-  backRightBtn: {
-      alignItems: 'center',
-      bottom: 0,
-      justifyContent: 'center',
-      position: 'absolute',
-      top: 0,
-      width: 75,
-  },
-  backRightBtnRight: {
-      borderRadius: 20,
-      right: 0,
-  },
-  backRightBtnLeft: {
-    width:200,
-    alignItems: 'flex-start',
-    paddingStart: 15,
-    backgroundColor: 'blue',
+    alignItems: 'center',
+    backgroundColor: '#f9c8bd',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: "wrap",
+    height: 80,
+    marginVertical: 10,
+    marginHorizontal: 20,
     borderRadius: 20,
-    left: 0,
+},
+backRightBtn: {
+    alignItems: 'center',
+    bottom: 0,
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    width: 75,
+},
+backRightBtnRight: {
+    borderRadius: 20,
+    right: 0,
+},
+backRightBtnLeft: {
+  width:200,
+  alignItems: 'flex-start',
+  paddingStart: 15,
+  backgroundColor: '#72c2fb',
+  borderRadius: 20,
+  left: 0,
+},
+backTextWhite: {
+  color: '#FFF',
+},
+ava: {
+  width: 40,
+  height: 40,
+  borderRadius: 20,
+  marginRight: 15
+},
+body: {
+  backgroundColor: 'white',
+  borderTopLeftRadius: 20,
+  borderTopRightRadius: 20,
+  height: '100%'
+},
+iconAdd: {
+  position: 'absolute', 
+  right: 10, 
+  top: 350, 
+  zIndex: 100, 
+  backgroundColor: 'white', 
+  borderRadius: 30,
+  shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 5,
   },
-  backTextWhite: {
-    color: '#FFF',
-  },
-  ava: {
-    width: 40,
-    height: 40,
-  },
+  shadowOpacity: 0.36,
+  shadowRadius: 6.68,
+
+  elevation: 11,
+}
 });

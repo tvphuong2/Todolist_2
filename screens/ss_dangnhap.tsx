@@ -35,40 +35,38 @@ export default function Dangnhap({ navigation, route }:any) {
     return (
         <View style={styles.container}>
             <View>
-                <View>
-                    <Image style={styles.logo} source={require('../assets/images/8.png')} />
-                </View>
-                <View>
-                    <Text style={styles.header}>Đăng nhập</Text>
-                </View>
-                <View>
-                    <View style={styles.inputView}>
-                        <TextInput autoComplete='email' style={styles.input} placeholder='Email' value={email} onChangeText={setEmail} />
-                    </View>
-                    <PasswordInput password={password} setPassword={setPassword} placeholder='Mật khẩu' />        
-                </View>
-                <Text>{e_login}</Text>
-                <TouchableOpacity style={styles.btn} onPress={dangNhap}>
-                    <Text style={styles.btnText}>ĐĂNG NHẬP</Text>
-                </TouchableOpacity>
-
-
-                <TouchableOpacity>
-                    <View style={styles.footer}>
-                        <View>
-                            {/* <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Dangky')}> */}
-                            <TouchableOpacity>
-                                <Text style={styles.linkText}>Đăng ký</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View>
-                            <TouchableOpacity>
-                                <Text style={styles.linkText}>Quên mật khẩu</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </TouchableOpacity>
+                <Image style={styles.logo} source={require('../assets/images/8.png')} />
             </View>
+            <View>
+                <Text style={styles.header}>Đăng nhập</Text>
+            </View>
+            <View>
+                <View style={styles.inputView}>
+                    <TextInput autoComplete='email' style={styles.input} placeholder='Email' value={email} onChangeText={setEmail} />
+                </View>
+                <PasswordInput password={password} setPassword={setPassword} placeholder='Mật khẩu' />        
+            </View>
+            <Text>{e_login}</Text>
+            <TouchableOpacity style={styles.btn} onPress={dangNhap}>
+                <Text style={styles.btnText}>ĐĂNG NHẬP</Text>
+            </TouchableOpacity>
+
+
+            <TouchableOpacity>
+                <View style={styles.footer}>
+                    <View>
+                        {/* <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Dangky')}> */}
+                        <TouchableOpacity>
+                            <Text style={styles.linkText}>Đăng ký</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <TouchableOpacity>
+                            <Text style={styles.linkText}>Quên mật khẩu</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </TouchableOpacity>
         </View>
         
     )
@@ -81,7 +79,7 @@ const styles = StyleSheet.create({
         width: width,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white'
+        backgroundColor: '#abe7ff'
     },
     logo: {
         width: 100,
@@ -89,8 +87,9 @@ const styles = StyleSheet.create({
     },
     header: {
         textAlign: 'center',
-        color: '#202b4d',
+        color: '#339fb7',
         fontSize: 30,
+        fontWeight: '600',
         marginBottom: 20,
         marginTop: 20
     },
@@ -101,11 +100,10 @@ const styles = StyleSheet.create({
     input: {
         width: 350,
         height: 50,
-        borderBottomWidth: 1,
-        borderColor: 'gray',
-        paddingLeft: 10,
+        paddingLeft: 15,
         backgroundColor: 'white',
-        marginBottom: 20
+        marginBottom: 20,
+        borderRadius: 25
     },
     icon: {
         position: 'absolute',
@@ -114,14 +112,15 @@ const styles = StyleSheet.create({
     btn: {
         width: 350,
         height: 50,
-        borderRadius: 5,
-        backgroundColor: '#ee4d2d',
+        borderRadius: 25,
+        backgroundColor: '#339fb7',
         alignItems: 'center',
         justifyContent: 'center'
     },
     btnText: {
         color: 'white',
-        fontSize: 16
+        fontSize: 16,
+        fontWeight: '600'
     },
     footer: {
         flexDirection: 'row',

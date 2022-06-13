@@ -17,7 +17,7 @@ export default function TabOneScreen({navigation, route}:any) {
   
   return (
     <ScrollView>
-      <View style = {{marginTop: 70}}>
+      <View style = {{paddingTop: 40}}>
           {
             banGhi && banGhi.map((banghi:any, i:number) => {
               return (
