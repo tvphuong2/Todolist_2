@@ -26,25 +26,26 @@ const KetQua = (props: any) => {
             <TouchableOpacity key={`n${index}`} onPress={() => navigation.navigate('BanGhi', {banghi})}>
                 <View>
                 {banghi && banghi.image !== '' ?
-                    <Image style={styles.anh} source={{ uri: API.layAnh(banghi.image)}} /> :
-                    <Image style={styles.anh} source={require('../assets/images/8.png')} /> 
+                    <View style={styles.imageView}>
+                        <Image style={styles.anh} source={{ uri: API.layAnh(banghi.image)}} />
+                    </View>
+                    :
+                    <View>
+                        <Image style={styles.anh} source={require('../assets/images/8.png')} /> 
+                    </View>
                 }
-                </View>
-                <View>
-                    <Text style={{color: 'gray', fontSize: 12}}>{banghi.name}</Text>
                 </View>
             </TouchableOpacity>
 
         
-            <View>
-                <View>
-                    <View style={{flexDirection: 'row',}}>
-                        <Text style={{color: 'gray', fontSize: 12}}>{handleNumberView(banghi.view)}</Text>
-                        <Text style={{color: 'gray', marginLeft: 3, fontSize: 12}}>lượt xem</Text>
-                    </View>
+            <View style={styles.content}>
+                <TouchableOpacity key={`n${index}`} onPress={() => navigation.navigate('BanGhi', {banghi})}>
+                    <Text style={styles.title}>{banghi.name}</Text>
+                </TouchableOpacity>
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={{color: 'gray', fontSize: 13}}>{handleNumberView(banghi.view)}</Text>
+                    <Text style={{color: 'gray', marginLeft: 3, fontSize: 13}}>lượt xem</Text>
                 </View>
-                
-
             </View>
         </View>
     );
@@ -54,41 +55,36 @@ export default KetQua;
 
 const styles = StyleSheet.create({
     container: {
-        // width: 200,
-        // height:80,
-        marginTop: 10,
-        borderWidth: 1,
-        borderRadius: 10,
-        borderColor: 'gray',
+        width: 300,
+        marginTop: 15,
+        paddingBottom: 15,
+        borderBottomWidth: 1,
+        borderBottomColor: '#e1e1e1'
     },
-    image: {
-        width: '100%',
-        height: 200,
-        justifyContent: 'center',
-        alignItems: 'center',
+    content: {
+        
     },
     title: {
-        margin: 5
-
-    },
-    titleText: {
-        textAlign: 'center',
-        overflow: 'hidden',
-        lineHeight: 20,
-        height: 40
-    },
-    view: {
-        margin: 5,
-        alignItems: 'flex-end',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        height: 35
+        marginVertical: 10,
+        color: '#339fb7', 
+        fontSize: 16,
     },
 
     anh: {
-        width:300,
-        height:150,
+        width: 300,
+        height: 140,
         borderRadius: 10,
+    },
+    imageView: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 3,
+            height: 5,
+        },
+        shadowOpacity: 0.8,
+        shadowRadius: 6.27,
+
+        elevation: 10,
     }
 
 });

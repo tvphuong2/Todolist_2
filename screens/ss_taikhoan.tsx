@@ -3,99 +3,99 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-nativ
 import { Modalize } from 'react-native-modalize';
 // import faker from 'faker';
 
-export default function FixedContent () {
-  const modalizeRef = useRef<Modalize>(null);
+export default function FixedContent() {
+    const modalizeRef = useRef<Modalize>(null);
 
-  const openModal = () => {
-    if (modalizeRef.current) {
-        modalizeRef.current?.open();
-    }
-  };
+    const openModal = () => {
+        if (modalizeRef.current) {
+            modalizeRef.current?.open();
+        }
+    };
 
-  const closeModal = () => {
-    if (modalizeRef.current) {
-      modalizeRef.current?.close();
-    }
-  };
+    const closeModal = () => {
+        if (modalizeRef.current) {
+            modalizeRef.current?.close();
+        }
+    };
     return (
-      <View style={s.content}>
-        <Text style={s.content__subheading}>{'Last step'.toUpperCase()}</Text>
-        <Text style={s.content__heading}>Send the message?</Text>
-        <Text style={s.content__description}></Text>
-        <TextInput style={s.content__input} placeholder="Type your username" />
+        <View style={s.content}>
+            <Text style={s.content__subheading}>{'Last step'.toUpperCase()}</Text>
+            <Text style={s.content__heading}>Send the message?</Text>
+            <Text style={s.content__description}></Text>
+            <TextInput style={s.content__input} placeholder="Type your username" />
 
-        <TouchableOpacity style={s.content__button} activeOpacity={0.9} onPress={closeModal}>
-          <Text style={s.content__buttonText}>{'Send'.toUpperCase()}</Text>
-        </TouchableOpacity>
-        <Modalize ref={modalizeRef} adjustToContentHeight>
-      </Modalize>
-      </View>
-      
+            <TouchableOpacity style={s.content__button} activeOpacity={0.9} onPress={closeModal}>
+                <Text style={s.content__buttonText}>{'Send'.toUpperCase()}</Text>
+            </TouchableOpacity>
+            <Modalize ref={modalizeRef} adjustToContentHeight>
+            </Modalize>
+        </View>
+
     );
 
 }
 
 const s = StyleSheet.create({
-  content: {
-    padding: 20,
-  },
+    content: {
+        padding: 20,
+    },
 
-  content__icon: {
-    width: 32,
-    height: 32,
+    content__icon: {
+        width: 32,
+        height: 32,
 
-    marginBottom: 20,
-  },
+        marginBottom: 20,
+    },
 
-  content__subheading: {
-    marginBottom: 2,
+    content__subheading: {
+        marginBottom: 2,
 
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#ccc',
-  },
+        fontSize: 16,
+        fontWeight: '600',
+        color: '#ccc',
+    },
 
-  content__heading: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: '#333',
-  },
+    content__heading: {
+        fontSize: 24,
+        fontWeight: '600',
+        color: '#333',
+    },
 
-  content__description: {
-    paddingTop: 10,
-    paddingBottom: 10,
+    content__description: {
+        paddingTop: 10,
+        paddingBottom: 10,
 
-    fontSize: 15,
-    fontWeight: '200',
-    lineHeight: 22,
-    color: '#666',
-  },
+        fontSize: 15,
+        fontWeight: '200',
+        lineHeight: 22,
+        color: '#666',
+    },
 
-  content__input: {
-    paddingVertical: 15,
-    marginBottom: 20,
+    content__input: {
+        paddingVertical: 15,
+        marginBottom: 20,
 
-    width: '100%',
+        width: '100%',
 
-    borderWidth: 1,
-    borderColor: 'transparent',
-    borderBottomColor: '#cdcdcd',
-    borderRadius: 6,
-  },
+        borderWidth: 1,
+        borderColor: 'transparent',
+        borderBottomColor: '#cdcdcd',
+        borderRadius: 6,
+    },
 
-  content__button: {
-    paddingVertical: 15,
+    content__button: {
+        paddingVertical: 15,
 
-    width: '100%',
+        width: '100%',
 
-    backgroundColor: '#333',
-    borderRadius: 6,
-  },
+        backgroundColor: '#333',
+        borderRadius: 6,
+    },
 
-  content__buttonText: {
-    color: '#fff',
-    fontSize: 15,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
+    content__buttonText: {
+        color: '#fff',
+        fontSize: 15,
+        fontWeight: '600',
+        textAlign: 'center',
+    },
 });

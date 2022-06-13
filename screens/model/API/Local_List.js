@@ -40,9 +40,12 @@ export function Download(data, callback) {
     console.log('Chèn vào bảng local_list');
     tx.executeSql(
       "INSERT INTO local_list (list_id, steps, image, onl, name, description, progress) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [data.list_id, data.steps, data.image, 1, data.name, data.description, data.progress],
-      callback('Thêm danh sách thành công'),
-      (txObj, error) => console.log('Error ', error)
+      [data.list_id, data.steps, data.image, 0, data.name, data.description, data.progress],
+      callback('ThanhCong'),
+      (txObj, error) => {
+        console.log('Error ', error);
+        callback("Error");
+      }
     );
     // tx.executeSql("select * from todolists where list_id=?", [data.list_id], (_, { rows }) =>
     //       console.log(JSON.stringify(rows))

@@ -95,7 +95,12 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="VanHanh"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        // tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: "#72c2fb",
+        tabBarInactiveTintColor: '#2e4250',
+        tabBarStyle: {
+          height: 60,
+        }
       }}>      
       <BottomTab.Screen
         name="LuuTru"
@@ -112,9 +117,15 @@ function BottomTabNavigator() {
         component={VanHanh}
         initialParams={{capNhat:capNhat}} 
         options={({ navigation }: RootTabScreenProps<'VanHanh'>) => ({
-          title: banGhi? banGhi.length + "" : "0",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          // title: banGhi? banGhi.length + "" : "0",
+          title: '',
+          tabBarIcon: ({ color }) => <TabBarIcon name="check-circle-o" color={color} />,
           headerShown: false,
+          tabBarBadge: banGhi? banGhi.length + "" : "0",
+          tabBarBadgeStyle: {
+            backgroundColor: '#f9c8bd',
+            color: 'white',
+          }
         })}
       />
       <BottomTab.Screen
