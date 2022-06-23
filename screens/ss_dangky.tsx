@@ -4,9 +4,9 @@ import PasswordInput from '../components/c_input_matkhau';
 import { useNavigation } from '@react-navigation/native';
 import * as API from './model/API/api';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
-export default function DangKy({ navigation }:any) {
+export default function DangKy({ navigation }: any) {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
@@ -21,7 +21,7 @@ export default function DangKy({ navigation }:any) {
             setModalVisible(true);
             return;
         }
-        API.dangKy(email, name,  password, (res: any) => {
+        API.dangKy(email, name, password, (res: any) => {
             console.log(res);
             if (res.status != "Thành công") {
                 setE_signup('Thông tin đăng ký không đúng')
@@ -51,7 +51,7 @@ export default function DangKy({ navigation }:any) {
             <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
                 <Text style={styles.btnText}>ĐĂNG KÝ</Text>
             </TouchableOpacity>
-            <Text>Bạn đã có tài khoản?  
+            <Text>Bạn đã có tài khoản?
                 <TouchableOpacity onPress={() => navigation.navigate('DangNhap')} >
                     <Text style={styles.linkText}> Đăng nhập</Text>
                 </TouchableOpacity>
@@ -59,13 +59,13 @@ export default function DangKy({ navigation }:any) {
 
             <View style={styles.centeredView}>
                 <Modal
-                animationType="slide"
-                transparent={false}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    setModalVisible(!modalVisible);
-                }}
+                    animationType="slide"
+                    transparent={false}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                        setModalVisible(!modalVisible);
+                    }}
                 >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         width: width,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white'
+        backgroundColor: '#abe7ff'
     },
     logo: {
         width: 100,
@@ -110,23 +110,23 @@ const styles = StyleSheet.create({
     input: {
         width: 350,
         height: 50,
-        borderBottomWidth: 1,
-        borderColor: 'gray',
-        paddingLeft: 10,
+        paddingLeft: 15,
         backgroundColor: 'white',
-        marginBottom: 20
+        marginBottom: 20,
+        borderRadius: 25
     },
     btn: {
         width: 350,
         height: 50,
-        borderRadius: 5,
-        backgroundColor: '#ee4d2d',
+        borderRadius: 25,
+        backgroundColor: '#339fb7',
         alignItems: 'center',
         justifyContent: 'center'
     },
     btnText: {
         color: 'white',
-        fontSize: 16
+        fontSize: 16,
+        fontWeight: '600'
     },
     linkText: {
         marginTop: 10,
@@ -139,33 +139,33 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 5,
-    paddingTop: 20,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-        width: 0,
-        height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 5,
+        paddingTop: 20,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
     },
     button: {
-    flexDirection: 'row',
+        flexDirection: 'row',
     },
     buttonModal: {
-    borderWidth: 1,
-    borderColor: '#f1f1f1',
-    width: '100%',
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center'
+        borderWidth: 1,
+        borderColor: '#f1f1f1',
+        width: '100%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     modalText: {
-    marginBottom: 15,
-    color: 'gray'
+        marginBottom: 15,
+        color: 'gray'
     }
 })
