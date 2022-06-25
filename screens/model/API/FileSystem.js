@@ -15,7 +15,7 @@ async function ensureDirExists() {
   export async function downloadImage(image) {
     try {
       await ensureDirExists();
-      image = LOCAL.layAnh(image);
+      if (image != null) image = LOCAL.layAnh(image);
       console.log('Downloading image ...');
       await Promise.all(FileSystem.downloadAsync(image, imgDir + layAnh(image)));
       console.log(imgDir + layAnh(image));

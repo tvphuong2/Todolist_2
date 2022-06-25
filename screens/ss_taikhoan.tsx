@@ -1,101 +1,155 @@
-import React, { useRef } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
-import { Modalize } from 'react-native-modalize';
-// import faker from 'faker';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Image, Alert, Modal, TouchableOpacity, ScrollView } from 'react-native';
+import { IconButton } from 'react-native-paper';
+import * as API from './model/API/api';
+import * as LOCALACCOUNT from './model/API/Local_Account';
+import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
-export default function FixedContent() {
-    const modalizeRef = useRef<Modalize>(null);
+export default function TaiKhoan() {
+    const [account, setAccount]: any = useState([]);
 
-    const openModal = () => {
-        if (modalizeRef.current) {
-            modalizeRef.current?.open();
-        }
-    };
+    useEffect(() => {
+        LOCALACCOUNT.LayTaiKhoan((res: any) => {
+            setAccount(res);
+        })
+    }, []);
 
-    const closeModal = () => {
-        if (modalizeRef.current) {
-            modalizeRef.current?.close();
-        }
-    };
     return (
-        <View style={s.content}>
-            <Text style={s.content__subheading}>{'Last step'.toUpperCase()}</Text>
-            <Text style={s.content__heading}>Send the message?</Text>
-            <Text style={s.content__description}></Text>
-            <TextInput style={s.content__input} placeholder="Type your username" />
+        <View style={styles.container}>
+            <View style={styles.modalView}>
+                <View style={styles.account}>
+                    <View style={styles.title}>
+                        <View>
+                            {account && account.image !== null ?
+                                <Image style={styles.avatar} source={{ uri: account.image }} /> :
+                                <Image style={styles.avatar} source={require('../assets/images/avatar-default.png')} />
+                            }
+                            <IconButton
+                                icon="camera"
+                                size={27}
+                                // onPress={pickImage}
+                                style={styles.camera}
+                            />
+                        </View>
+                        {account && <Text style={styles.name}>
+                            {account.name}{ }
+                            <FontAwesome name="edit" size={24} style={styles.icon} />
+                        </Text>}
+                    </View>
+                    <View style={styles.info}>
+                        <View style={styles.row}>
+                            <FontAwesome name="file-text-o" size={24}  style={styles.icon} >
+                                <Text style={styles.data}> 4</Text>
+                            </FontAwesome>
+                            <FontAwesome name="eye" size={24} style={styles.icon} >
+                                <Text style={styles.data}> 4</Text>
+                            </FontAwesome>
+                        </View>
+                        <View style={styles.row}>
+                            <AntDesign name="like1" size={24} style={styles.icon} >
+                                <Text style={styles.data}> 4</Text>
+                            </AntDesign>
+                            <AntDesign name="download" size={24} style={styles.icon} >
+                                <Text style={styles.data}> 4</Text>
+                            </AntDesign>
+                        </View>
 
-            <TouchableOpacity style={s.content__button} activeOpacity={0.9} onPress={closeModal}>
-                <Text style={s.content__buttonText}>{'Send'.toUpperCase()}</Text>
-            </TouchableOpacity>
-            <Modalize ref={modalizeRef} adjustToContentHeight>
-            </Modalize>
+                    </View>
+                </View>
+            </View>
+
+
+
         </View>
-
     );
-
 }
 
-const s = StyleSheet.create({
-    content: {
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        // backgroundColor: 'black',
+        // opacity: 0.5,
+        borderRadius: 20,
+        zIndex: 0,
+    },
+    
+    modalView: {
+        zIndex: 1,
+        opacity: 1,
+        marginTop: 20,
         padding: 20,
-    },
-
-    content__icon: {
-        width: 32,
-        height: 32,
-
-        marginBottom: 20,
-    },
-
-    content__subheading: {
-        marginBottom: 2,
-
-        fontSize: 16,
-        fontWeight: '600',
-        color: '#ccc',
-    },
-
-    content__heading: {
-        fontSize: 24,
-        fontWeight: '600',
-        color: '#333',
-    },
-
-    content__description: {
-        paddingTop: 10,
-        paddingBottom: 10,
-
-        fontSize: 15,
-        fontWeight: '200',
-        lineHeight: 22,
-        color: '#666',
-    },
-
-    content__input: {
-        paddingVertical: 15,
-        marginBottom: 20,
-
+        backgroundColor: "white",
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
+        borderColor: '#339fb7',
+        paddingHorizontal: 35,
+        alignItems: "center",
+        shadowColor: "black",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        position: 'absolute',
         width: '100%',
-
-        borderWidth: 1,
-        borderColor: 'transparent',
-        borderBottomColor: '#cdcdcd',
-        borderRadius: 6,
+        bottom: 0,
     },
-
-    content__button: {
-        paddingVertical: 15,
-
-        width: '100%',
-
-        backgroundColor: '#333',
-        borderRadius: 6,
+    account: {
+        // backgroundColor: '#E5E5E5',
     },
-
-    content__buttonText: {
-        color: '#fff',
-        fontSize: 15,
-        fontWeight: '600',
-        textAlign: 'center',
+    title: {
+        alignItems: 'center'
     },
+    avatar: {
+        width: 170,
+        height: 170,
+        borderRadius: 85,
+        backgroundColor: "#73C2FB",
+    },
+    avatarIcon: {
+        width: 170,
+        height: 170,
+        borderRadius: 85,
+        fontSize: 50
+    },
+    camera: {
+        position: 'absolute',
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "#D7F8FF"
+    },
+    icon: {
+        color: "#45818E",
+        marginHorizontal: 40,
+    },
+    name: {
+        fontSize: 18,
+        fontWeight: "500",
+        marginTop: 10
+    },
+    info: {
+        padding: 20,
+        flex: 1,
+    },
+    row: {
+        flexDirection: 'row',
+        padding: 5,
+    },
+    data: {
+        fontSize: 20,
+    }
+
 });
+
+function rgba(arg0: number, arg1: number, arg2: number, arg3: number): any | import("react-native").ColorValue | undefined {
+    throw new Error('Function not implemented.');
+}
