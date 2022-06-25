@@ -16,14 +16,13 @@ export function createAccount() {
             'password text NOT NULL ' +
             ');',
             [],
-            console.log('Tạo bảng local_account thành công!'),
             (txObj, error) => console.log('Error', error)
         )
     })
   }
   
   
-  export function DangXuat(callback) {
+  export function DangXuat(callback:any) {
     return new Promise((resolve, reject) => {
         db.transaction(function (tx) {
           tx.executeSql(
@@ -32,13 +31,12 @@ export function createAccount() {
               callback(result.rows._array);
               resolve(result.rows._array);
             },
-            (_, error) => reject(error),
           )
         })
       })
   }
   
-  export function LayTaiKhoan(callback) {
+  export function LayTaiKhoan(callback:any) {
     return new Promise((resolve, reject) => {
       db.transaction(function (tx) {
         tx.executeSql(
@@ -47,22 +45,18 @@ export function createAccount() {
             callback(result.rows._array[0]);
             resolve(result.rows._array[0]);
           },
-          (_, error) => {
-            reject(error);
-            callback(null);
-          }
+          
         )
       })
     })
   }
   
-  export function DangNhap(data, callback) {
+  export function DangNhap(data:any, callback:any) {
     // return new Promise((resolve, reject) => {
+      console.log("Đăng nhập 1");
       db.transaction(function (tx) {
         tx.executeSql(
           'DELETE FROM local_account', [],
-          console.log("Xóa dữ liệu account thành công!"),
-          (_, error) => console.log(error),
         );
         console.log('Xóa dữ liệu trong local_account');
 
@@ -73,10 +67,6 @@ export function createAccount() {
             callback(result.rows._array);
             // resolve(result.rows._array);
           },
-          (_, error) => {
-            console.log(error)
-            // reject(error)
-          }
         );
       });
     // })

@@ -39,13 +39,27 @@ export default function BanGhi({ navigation, route }: any) {
     }
 
     async function download() {
-        banghi.image = await FileSystem.downloadImage(banghi.image);
-        LOCAL.Download(banghi, (res: any) => {
-            console.log(res);
-            if (res == 'ThanhCong')
-                Alert.alert("", "Đã tải bản ghi về");
-            else Alert.alert("", "Đã có bản ghi này trên máy");
-        })
+        console.log("pip");
+        FileSystem.downloadImage(banghi.image, (image: any) => {
+            banghi.image = image;
+            var error = true;
+            LOCAL.Download(banghi, (res: any) => {
+                if (res != 'Error'){
+                    error = false;
+                } else {
+                    error = true;
+                }
+            });
+            setTimeout(()=> {
+                if(error) {
+                    Alert.alert("", "Đã có bản ghi này trên máy");
+                } else {
+                    Alert.alert("", "Đã tải bản ghi về");
+                    API.APITangLuotTaiVe(banghi.list_id);
+                }
+            }, 500)
+        });
+        
     }
 
     useEffect(() => {

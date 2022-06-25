@@ -15,8 +15,9 @@ export default function TabOneScreen({navigation, route}:any) {
   const [banGhi, thayBanGhi]:any = useState(null);
   
   useEffect(() => {
-    LOCALLIST.reset();
+    // LOCALLIST.reset();
     // LOCALACCOUNT.createAccount();
+    
     LOCALLIST.createLocalList();
     LOCALLIST.getProgress(thayBanGhi); 
     const willFocusSubscription = navigation.addListener('focus', () => {

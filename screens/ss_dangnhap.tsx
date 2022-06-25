@@ -16,7 +16,6 @@ export default function Dangnhap({ navigation, route }: any) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [e_login, setE_login] = useState('');
-    const [account, setAccount]: any = useState([]);
 
     async function dangNhap() {
         console.log("dang dang nhap")
@@ -27,18 +26,20 @@ export default function Dangnhap({ navigation, route }: any) {
                 setE_login('Tên đăng nhập hoặc mật khẩu sai')
             } else {
                 API.APILayTacGia(res.id, (result: any) => {
-                    setAccount(result);
+                    FileSystem.downloadImage(result.image, (img: any) => {
+                        result.image = img;
+                        LOCALACCOUNT.DangNhap(result, (res: any) => {
+                            console.log("Đăng nhập thành công");
+                            LOCALACCOUNT.LayTaiKhoan((res: any) => {
+                                thay_tai_khoan = res;
+                                navigation.navigate('KhamPha');
+                            })
+                        })
+                    })
                 })
             }
         });
-        account.image = await FileSystem.downloadImage(account.image);
-        LOCALACCOUNT.DangNhap(account, (res: any) => {
-            console.log("Đăng nhập thành công");
-            LOCALACCOUNT.LayTaiKhoan((res: any) => {
-                thay_tai_khoan = res;
-                navigation.navigate('KhamPha');
-            })
-        })
+        
     }
 
 

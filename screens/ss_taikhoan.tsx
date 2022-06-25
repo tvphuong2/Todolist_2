@@ -8,11 +8,16 @@ import { AntDesign } from '@expo/vector-icons';
 
 export default function TaiKhoan() {
     const [account, setAccount]: any = useState([]);
+    const [info, setInfo]: any = useState([]);
+
 
     useEffect(() => {
         LOCALACCOUNT.LayTaiKhoan((res: any) => {
             setAccount(res);
-        })
+        });
+        API.APILayThongTin((res: any) => {
+            setInfo(res);
+        });
     }, []);
 
     return (
@@ -40,18 +45,18 @@ export default function TaiKhoan() {
                     <View style={styles.info}>
                         <View style={styles.row}>
                             <FontAwesome name="file-text-o" size={24}  style={styles.icon} >
-                                <Text style={styles.data}> 4</Text>
+                                <Text style={styles.data}> {info.list}</Text>
                             </FontAwesome>
                             <FontAwesome name="eye" size={24} style={styles.icon} >
-                                <Text style={styles.data}> 4</Text>
+                                <Text style={styles.data}> {info.view}</Text>
                             </FontAwesome>
                         </View>
                         <View style={styles.row}>
                             <AntDesign name="like1" size={24} style={styles.icon} >
-                                <Text style={styles.data}> 4</Text>
+                                <Text style={styles.data}> {info.votes}</Text>
                             </AntDesign>
                             <AntDesign name="download" size={24} style={styles.icon} >
-                                <Text style={styles.data}> 4</Text>
+                                <Text style={styles.data}> {info.download}</Text>
                             </AntDesign>
                         </View>
 

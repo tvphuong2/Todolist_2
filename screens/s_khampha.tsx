@@ -51,7 +51,7 @@ export default function KhamPha({ navigation }: RootTabScreenProps<'KhamPha'>) {
 
   function logout() {
     LOCALACCOUNT.DangXuat((res: any) => {
-      thay_tai_khoan(null)
+      thay_tai_khoan(null);
     })
   }
 
@@ -68,7 +68,7 @@ export default function KhamPha({ navigation }: RootTabScreenProps<'KhamPha'>) {
                   {
                     tai_khoan.image && tai_khoan.image !== '' ?
                       <Image style={styles.ava} source={{ uri: tai_khoan.image }} />
-                      : <Image style={styles.ava} source={require('../assets/images/logo.png')} />
+                      : <Image style={styles.ava} source={require('../assets/images/avatar-default.png')} />
                   }
                 </TouchableOpacity>
 

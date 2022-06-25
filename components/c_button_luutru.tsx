@@ -24,8 +24,8 @@ export default function BanGhiNoiBo(props:any) {
   }
 	
   useEffect(()=>{
-    console.log(banghi.on)
-    setIsEnabled(banghi.on == 1)
+    console.log(banghi.onl)
+    setIsEnabled(banghi.onl == 1)
   }, []);
 
   function chuyenTrang() {

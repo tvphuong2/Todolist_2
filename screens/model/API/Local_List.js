@@ -24,7 +24,8 @@ export function createLocalList() {
       'onl integer NOT NULL DEFAULT 0, ' +
       'name text NOT NULL, ' +
       'description text DEFAULT NULL, ' +
-      'progress text DEFAULT NULL' +
+      'progress text DEFAULT NULL, ' +
+      'type_id integer NOT NULL' +
       ');',
       [],
       console.log('Tạo bảng local_list thành công!'),
@@ -38,8 +39,8 @@ export function Upload(data, callback) {
     db.transaction(function (tx) {
       console.log('Chèn vào bảng local_list');
       tx.executeSql(
-        "INSERT INTO local_list (steps, image, onl, name, description, progress) VALUES (?, ?, ?, ?, ?, ?)",
-        [data.steps, data.image, 0, data.name, data.description, data.progress],
+        "INSERT INTO local_list (steps, image, onl, name, description, progress, type_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [data.steps, data.image, 0, data.name, data.description, data.progress, data.type_id],
         // callback('ThanhCong'),
         (_, result) => {
           console.log('aaa');
@@ -66,10 +67,10 @@ export function Download(data, callback) {
     db.transaction(function (tx) {
       console.log('Chèn vào bảng local_list');
       tx.executeSql(
-        "INSERT INTO local_list (list_id, steps, image, onl, name, description, progress) VALUES (?, ?, ?, ?, ?, ?, ?)",
-        [data.list_id, data.steps, data.image, 0, data.name, data.description, data.progress],
+        "INSERT INTO local_list (list_id, steps, image, onl, name, description, progress, type_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        [data.list_id, data.steps, data.image, 0, data.name, data.description, data.progress, data.type_id],
         callback('ThanhCong'),
-        (txObj, error) => {
+        (_txObj, error) => {
           console.log('Error ', error);
           callback("Error");
         }

@@ -21,12 +21,12 @@ export default function LuuTru({ navigation, route }: any) {
 
 
   function logout() {
-    // LOCAL.XoaTaiKhoan((res:any)=> {
-    //     thay_tai_khoan(null)
-    // })
+    LOCALACCOUNT.DangXuat((res: any) => {
+      thay_tai_khoan(null);
+    })
   }
 
-  function xoa(key: any) {
+  function vuotTrai(key: any) {
     if (noi_bo) {
       LOCALLIST.deleteList(ket_qua[key].list_id, (res: any) => {
         thay_ket_qua(ket_qua.filter((item: any) => item.key != key))
@@ -38,15 +38,22 @@ export default function LuuTru({ navigation, route }: any) {
     }
   }
 
-  function chuyenDuLieu(key: any) {
+  function vuotPhai(key: any) {
     if (noi_bo) {
-      Alert.alert("", "Tải bản ghi thành công!!\n Thật ra là chưa làm cái này :v")
-    } else {
-      LOCALLIST.Download(ket_qua[key], (res: any) => {
-        if (res == 'ThanhCong')
-          Alert.alert("", "Đã tải bản ghi về");
-        else Alert.alert("", "Đã có bản ghi này trên máy");
+      API.APITaoBanGhi(ket_qua[key], () => {
+        Alert.alert("", "Tải bản ghi thành công!!");
       })
+      
+    } else {
+      FileSystem.downloadImage(ket_qua[key].image, (image:any) => {
+        ket_qua[key].image = image;
+        LOCALLIST.Download(ket_qua[key], (res: any) => {
+          if (res == 'ThanhCong')
+            Alert.alert("", "Đã tải bản ghi về");
+          else Alert.alert("", "Đã có bản ghi này trên máy");
+        });
+      })
+      
     }
 
   }
@@ -105,7 +112,7 @@ export default function LuuTru({ navigation, route }: any) {
         </TouchableHighlight>
         <TouchableHighlight
           style={[styles.backRightBtn, styles.backRightBtnRight]}
-          onPress={() => { xoa(data.item.key) }}>
+          onPress={() => { vuotTrai(data.item.key) }}>
           <MaterialCommunityIcons name="trash-can" size={35} color="white" />
         </TouchableHighlight>
       </View>
@@ -119,12 +126,12 @@ export default function LuuTru({ navigation, route }: any) {
     if (value < -Dimensions.get('window').width / 3 && (key != last_key || huong == "t")) {
       last_key = key
       huong = "p"
-      xoa(key)
+      vuotTrai(key)
     }
     if (value > Dimensions.get('window').width / 3 && (key != last_key || huong == "p")) {
       last_key = key
       huong = "t"
-      chuyenDuLieu(key)
+      vuotPhai(key)
     }
   };
 
@@ -134,6 +141,7 @@ export default function LuuTru({ navigation, route }: any) {
 
   return (
     <View style={{ flex: 1, }}>
+      <ScrollView>
       <ImageBackground
         source={{ uri: 'https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg?w=2000' }}
         resizeMode="cover"
@@ -146,7 +154,7 @@ export default function LuuTru({ navigation, route }: any) {
                   {
                     tai_khoan.image && tai_khoan.image !== '' ?
                       <Image style={styles.ava} source={{ uri: tai_khoan.image }} />
-                      : <Image style={styles.ava} source={require('../assets/images/8.png')} />
+                      : <Image style={styles.ava} source={require('../assets/images/avatar-default.png')} />
                   }
                 </TouchableOpacity>
                 <Modal
@@ -208,8 +216,8 @@ export default function LuuTru({ navigation, route }: any) {
             data={ket_qua}
             renderItem={hienThiBanGhi}
             renderHiddenItem={hienThiNen}
-            rightOpenValue={-Dimensions.get('window').width / 6}
-            leftOpenValue={Dimensions.get('window').width / 6}
+            // rightOpenValue={-Dimensions.get('window').width / 6}
+            // leftOpenValue={Dimensions.get('window').width / 6}
             previewRowKey={'0'}
             previewOpenValue={-Dimensions.get('window').width}
             previewOpenDelay={1000}
@@ -218,6 +226,7 @@ export default function LuuTru({ navigation, route }: any) {
           />
         </View>
       </ImageBackground>
+      </ScrollView>
     </View>
   );
 }
