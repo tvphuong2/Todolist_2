@@ -74,14 +74,11 @@ export default function KhamPha({ navigation }: RootTabScreenProps<'KhamPha'>) {
 
                 <Modal
                   isVisible={modalVisible}
-                  style={{ justifyContent: 'flex-end', margin: 0 }}
+                  style={styles.modal}
                   onBackdropPress={() => setModalVisible(false)}
                   onBackButtonPress={() => setModalVisible(false)}
                   onSwipeComplete={() => setModalVisible(false)}
-                  swipeDirection="down"
-
-                >
-
+                  swipeDirection="down">
                   <TaiKhoan />
                 </Modal>
                 <Text style={{ color: '#339fb7', fontWeight: '600', fontSize: 20, marginVertical: 15, marginLeft: 10 }}>Chào {tai_khoan.name}!</Text>
@@ -180,6 +177,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: "#73C2FB",
   },
+  modal: { justifyContent: 'flex-end', margin: 0, marginTop: 300 }
 });
 
 const ds_chude = [

@@ -331,7 +331,9 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    marginRight: 15
+    marginRight: 15,
+    backgroundColor: "#73C2FB",
+
   },
   body: {
     backgroundColor: 'white',

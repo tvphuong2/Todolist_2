@@ -58,7 +58,7 @@
        <Stack.Group screenOptions={{ presentation: 'modal' }}>
          <Stack.Screen name="ChuDe" component={ChuDe}/>
          <Stack.Screen name="Modal" component={ModalScreen}/>
-         <Stack.Screen name="BanGhi" component={BanGhi} options={{title: 'Xem bản ghi'}}/>
+         {/* <Stack.Screen name="BanGhi" component={BanGhi} options={{title: 'Xem bản ghi'}}/> */}
          <Stack.Screen name="BanGhiNoiBo" component={BanGhiNoiBo} options={{title: 'Xem bản ghi'}}/>
          {/* <Stack.Screen name="BanGhi" component={TaoBanGhi} options={{title: 'Xem bản ghi'}}/> */}
  

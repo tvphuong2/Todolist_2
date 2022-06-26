@@ -10,6 +10,7 @@ export function createAccount() {
     db.transaction(tx => {
         tx.executeSql(
             'CREATE TABLE IF NOT EXISTS local_account(' +
+            'account_id integer NOT NULL ' +
             'name text NOT NULL, ' +
             'image text DEFAULT NULL, ' +
             'email text NOT NULL, ' +
@@ -61,8 +62,8 @@ export function createAccount() {
         console.log('Xóa dữ liệu trong local_account');
 
         tx.executeSql(
-          "INSERT INTO local_account ( name, image, email, password) VALUES (?, ?, ?, ?);",
-          [data.name, data.image, data.email, data.password],
+          "INSERT INTO local_account (account_id, name, image, email, password) VALUES (?, ?, ?, ?, ?);",
+          [data.account_id, data.name, data.image, data.email, data.password],
           (_, result) => {
             callback(result.rows._array);
             // resolve(result.rows._array);

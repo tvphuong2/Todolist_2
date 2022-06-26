@@ -9,8 +9,8 @@ import RNFS from 'react-native-fs';
 import * as FileSystem from './model/API/FileSystem';
 
 
-export default function BanGhi({ navigation, route }: any) {
-    const { banghi } = route.params
+export default function BanGhi(props: any) {
+    const { banghi } = props;
     const [danhGia, taoDanhGia]: any = useState([]);
     const [binhLuan, taoBinhLuan]: any = useState([]);
     const [binhLuanMoi, taoBinhLuanMoi]: any = useState([]);
