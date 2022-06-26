@@ -3,8 +3,10 @@ import { StyleSheet, Text, View, Image, Alert, Modal, TouchableOpacity, ScrollVi
 import { IconButton } from 'react-native-paper';
 import * as API from './model/API/api';
 import * as LOCALACCOUNT from './model/API/Local_Account';
+import * as LOCALLIST from './model/API/Local_List';
 import { FontAwesome, AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from './model/API/FileSystem';
 
 export default function TaiKhoan() {
     const [account, setAccount]: any = useState([]);
@@ -52,9 +54,23 @@ export default function TaiKhoan() {
     function saveNewName() {
         API.APIDoiUserName(account.account_id, newName, (res:any) => {
             console.log(res.status);
+            LOCALLIST.reset();
+            LOCALACCOUNT.createAccount();
+            setEditName(false);
+            API.APILayTacGia(2, (result: any) => {
+                console.log(result);
+                FileSystem.downloadImage(result.image, (img: any) => {
+                    result.image = img;
+                    LOCALACCOUNT.DangNhap(result, (res: any) => {
+                        console.log("thành công");
+                        LOCALACCOUNT.LayTaiKhoan((res: any) => {
+                            setAccount(res);
+                        })
+                    })
+                })
+            })
         })
 
-        setEditName(false);
     }
 
     return (
@@ -200,7 +216,7 @@ const styles = StyleSheet.create({
         height: 50,
         fontSize: 18,
         fontWeight: "500",
-        borderBottomColor: 'black',
+        borderBottomColor: 'gray',
         borderBottomWidth: 1
     },
     info: {
