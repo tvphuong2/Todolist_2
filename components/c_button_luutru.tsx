@@ -36,10 +36,8 @@ export default function BanGhiNoiBo(props: any) {
 
   function chuyenTrang() {
     if (banghi.view == null) {
-      // navigation.navigate('BanGhiNoiBo', { banghi })
       setIsLocal(true);
     } else {
-      // navigation.navigate('BanGhi', {banghi})
       setIsLocal(false);
     }
   }
@@ -118,5 +116,13 @@ const styles = StyleSheet.create({
   timeStart: {
     paddingTop: 15,
   },
-  modal: { justifyContent: 'flex-end', margin: 0, marginTop: 80 }
+  modal: { 
+    justifyContent: 'flex-end', 
+    margin: 0, 
+    marginTop: 80,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderTopColor: "white",
+    overflow: 'hidden',
+  }
 })

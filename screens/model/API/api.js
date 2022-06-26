@@ -117,3 +117,18 @@ export function APILayThongTin (hanhdong) {
 export function APIXoaBanGhi (hanhdong) {
     return getRequest(`${PATH}/list/delete_list`, hanhdong);
 }
+
+export function APIDoiAva (image, hanhdong) {
+    let formData = new FormData();
+    formData.append("image", {uri: image, name: 'image.png', type: 'image/png'});
+
+    console.log(formData);
+    return postFile(`${PATH}/list/changeava`, hanhdong, formData);
+}
+
+export function APIDoiUserName (user_id, name, hanhdong) {
+    return postRequest(`${PATH}/list/changename`, hanhdong, {
+        user_id: user_id,
+        name: name,
+    });
+}

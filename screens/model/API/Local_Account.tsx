@@ -72,3 +72,21 @@ export function createAccount() {
       });
     // })
   }
+
+  export function DoiTen(account_id:any, name:any, callback:any) {
+    db.transaction(function(tx) {
+      tx.executeSql(
+        `UPDATE local_account SET name = ? WHERE account_id = ?`, [name, account_id],
+        callback('thay ten thanh cong'),
+      );
+    })
+  }
+
+  export function DoiAnhDaiDien(account_id:any, ava:any, callback:any) {
+    db.transaction(function(tx) {
+      tx.executeSql(
+        `UPDATE local_account SET image = ? WHERE account_id = ?`, [ava, account_id],
+        callback('thay anh dai dien thanh cong'),
+      );
+    })
+  }

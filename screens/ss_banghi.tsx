@@ -15,13 +15,25 @@ export default function BanGhi(props: any) {
     const [binhLuan, taoBinhLuan]: any = useState([]);
     const [binhLuanMoi, taoBinhLuanMoi]: any = useState([]);
     const [thich, daThich]: any = useState(false);
+    const [author, setAuthor]: any = useState([]);
     const j_steps = JSON.parse(banghi.steps)
 
     useEffect(() => {
-        API.APILayBanGhi(banghi.list_id, (res: any) => { })
-        API.APILayDanhGia(banghi.list_id, taoDanhGia)
-        API.APILayBinhLuan(banghi.list_id, taoBinhLuan)
-        API.APIKiemTraThich(banghi.list_id, (res: any) => daThich(res.length > 0))
+    
+        API.APILayBanGhi(banghi.list_id, (res: any) => { 
+            API.APILayTacGia(res.author_id, (res: any) => {
+                res.image = LOCAL.layAnh(res.image);
+                setAuthor(res);
+    
+            });
+         });
+        API.APILayDanhGia(banghi.list_id, taoDanhGia);
+        API.APILayBinhLuan(banghi.list_id, (res: any) => {
+            if (res == "") taoBinhLuan(null);
+            else taoBinhLuan(res);
+        });
+        API.APIKiemTraThich(banghi.list_id, (res: any) => daThich(res.length > 0));
+        
     }, []);
 
     function guiBinhLuan() {
@@ -39,19 +51,18 @@ export default function BanGhi(props: any) {
     }
 
     async function download() {
-        console.log("pip");
         FileSystem.downloadImage(banghi.image, (image: any) => {
             banghi.image = image;
             var error = true;
             LOCAL.Download(banghi, (res: any) => {
-                if (res != 'Error'){
+                if (res != 'Error') {
                     error = false;
                 } else {
                     error = true;
                 }
             });
-            setTimeout(()=> {
-                if(error) {
+            setTimeout(() => {
+                if (error) {
                     Alert.alert("", "Đã có bản ghi này trên máy");
                 } else {
                     Alert.alert("", "Đã tải bản ghi về");
@@ -59,7 +70,7 @@ export default function BanGhi(props: any) {
                 }
             }, 500)
         });
-        
+
     }
 
     useEffect(() => {
@@ -93,9 +104,15 @@ export default function BanGhi(props: any) {
                             <Text style={styles.type}>Lượt tải về: {banghi.download}</Text>
                             <Text style={styles.type}>Được thích: {danhGia.avg}</Text>
                         </View>
-                        <View style={styles.row}>
-                            <Text style={styles.type}>{banghi.author}</Text>
-                        </View>
+                        {author ?
+                            <View style={styles.row}>
+                                {author.image !== null && author.image !== '' ?
+                                    <Image style={styles.author} source={{ uri: author.image }} /> :
+                                    <Image style={styles.author} source={require('../assets/images/avatar-default.png')} />
+                                }
+                                <Text >{author.name}</Text>
+                            </View> : <View></View>
+                        }
                     </View>
                 </View>
                 <View style={styles.step}>{
@@ -157,7 +174,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         fontSize: 16,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
     },
     illustration: {
         flex: 1,
@@ -210,7 +227,7 @@ const styles = StyleSheet.create({
         borderRadius: 35,
     },
     type: {
-        flex: 2,
+        flex: 1,
         justifyContent: 'center',
         paddingHorizontal: 10,
         fontSize: 15,

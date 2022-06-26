@@ -167,7 +167,7 @@ export default function LuuTru({ navigation, route }: any) {
                   swipeDirection="down"
                 >
 
-                  <TaiKhoan />
+                  <TaiKhoan thayTaiKhoan={thay_tai_khoan}/>
                 </Modal>
                 <Text style={{ color: '#339fb7', fontWeight: '600', fontSize: 20, marginVertical: 15 }}>Chào {tai_khoan.name}!</Text>
               </View>

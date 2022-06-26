@@ -34,7 +34,7 @@ const CreateComment = (props:any) => {
                     <TextInput style={styles.input} value={newComment} onChangeText={setNewComment} placeholder="Viết bình luận" />
                     <View style={styles.btn}>
                         <TouchableOpacity style={styles.btnCreate}>
-                            <Text style={styles.btnCreateText} onPress={() => {handleCreateComment; setNewComment(null);window.location.reload();}}>Đăng</Text>
+                            <Text style={styles.btnCreateText} onPress={() => {handleCreateComment; setNewComment(null);}}>Đăng</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

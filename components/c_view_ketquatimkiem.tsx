@@ -100,14 +100,13 @@ const styles = StyleSheet.create({
         elevation: 10,
     },
     modal: {
-        // borderRadius: 20,
-        // borderColor: 'white',
-        // borderTopLeftRadius: 10,
-        // borderTopRightRadius: 10,
-        // margin: 0,
         marginTop: 100,
         justifyContent: 'flex-end',
         margin: 0,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        borderTopColor: "white",
+        overflow: 'hidden',
     }
 
 });

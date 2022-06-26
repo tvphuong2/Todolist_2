@@ -64,7 +64,7 @@ export default function KhamPha({ navigation }: RootTabScreenProps<'KhamPha'>) {
           tai_khoan && tai_khoan.email ?
             <View style={{ marginBottom: 15, width: '100%' }}>
               <View style={{ flexDirection: 'row', paddingTop: 50, justifyContent: 'center', alignItems: 'center', backgroundColor: '#abe7ff' }}>
-                <TouchableOpacity onPress={() => setModalVisible(true)}>
+                <TouchableOpacity onPress={() => {setModalVisible(true);}}>
                   {
                     tai_khoan.image && tai_khoan.image !== '' ?
                       <Image style={styles.ava} source={{ uri: tai_khoan.image }} />
@@ -79,7 +79,7 @@ export default function KhamPha({ navigation }: RootTabScreenProps<'KhamPha'>) {
                   onBackButtonPress={() => setModalVisible(false)}
                   onSwipeComplete={() => setModalVisible(false)}
                   swipeDirection="down">
-                  <TaiKhoan />
+                  <TaiKhoan thayTaiKhoan={thay_tai_khoan} />
                 </Modal>
                 <Text style={{ color: '#339fb7', fontWeight: '600', fontSize: 20, marginVertical: 15, marginLeft: 10 }}>Chào {tai_khoan.name}!</Text>
               </View>

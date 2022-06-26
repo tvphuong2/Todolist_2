@@ -1,4 +1,4 @@
-export const PATH = 'http://192.168.1.4:3000'
+export const PATH = 'http://192.168.43.60:3000'
 
 export function getRequest(duongdan, hanhdong) {
     return fetch(duongdan)

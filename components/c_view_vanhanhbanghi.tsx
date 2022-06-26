@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import * as LOCALLIST from '../screens/model/API/Local_List'
 import * as API from '../screens/model/API/api';
 
-export default function VanHanhBanGhi({navigation, props}:any) {
+export default function VanHanhBanGhi(props:any) {
     const {banghi, i} = props;
     const [trangThai, thayTrangThai]:any = useState(null);
     const [buoc, thayBuoc]:any = useState();
@@ -27,9 +27,10 @@ export default function VanHanhBanGhi({navigation, props}:any) {
                 }
                 else if (i + 1 == buoc.length) {
                     console.log("DA XONG");
-                    LOCALLIST.setOff(banghi.list_id, (res:any) => {
-                        console.log(res);
-                    });
+                    
+                    // LOCALLIST.setOff(banghi.list_id, (res:any) => {
+                    //     console.log(res);
+                    // });
                     
 
                 } else if (trangThai[buoc[i + 1]['key']] == "0") {
