@@ -25,7 +25,7 @@ const KetQua = (props: any) => {
 
     return (
         <View style={styles.container} key={`k${index}`}>
-            <TouchableOpacity key={`n${index}`} onPress={() => { setModalVisible(true)}}>
+            <TouchableOpacity key={`n${index}`} onPress={() => { setModalVisible(true) }}>
                 <View>
                     {banghi && banghi.image !== '' ?
                         <View style={styles.imageView}>
@@ -41,7 +41,7 @@ const KetQua = (props: any) => {
 
 
             <View style={styles.content}>
-                <TouchableOpacity key={`n${index}`} onPress={() => {setModalVisible(true);}}>
+                <TouchableOpacity key={`n${index}`} onPress={() => { setModalVisible(true); }}>
                     <Text style={styles.title}>{banghi.name}</Text>
                 </TouchableOpacity>
                 <View style={{ flexDirection: 'row' }}>
@@ -55,12 +55,10 @@ const KetQua = (props: any) => {
                 style={styles.modal}
                 onBackdropPress={() => setModalVisible(false)}
                 onBackButtonPress={() => setModalVisible(false)}
-                // onSwipeComplete={() => setModalVisible(false)}
                 propagateSwipe={true}
-                // swipeDirection="down"
-                >
-                    <ScrollView><Banghi banghi={banghi} /></ScrollView>
-                
+            >
+                <ScrollView><Banghi banghi={banghi} /></ScrollView>
+
             </Modal>
         </View>
     );
@@ -102,12 +100,14 @@ const styles = StyleSheet.create({
         elevation: 10,
     },
     modal: {
-        borderRadius: 20,
-        borderColor: 'white',
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
-        margin: 0,
+        // borderRadius: 20,
+        // borderColor: 'white',
+        // borderTopLeftRadius: 10,
+        // borderTopRightRadius: 10,
+        // margin: 0,
         marginTop: 100,
+        justifyContent: 'flex-end',
+        margin: 0,
     }
 
 });

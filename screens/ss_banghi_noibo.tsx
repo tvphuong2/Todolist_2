@@ -3,8 +3,8 @@ import { View, Image, StyleSheet, Text, TouchableOpacity, ScrollView } from 'rea
 import {Ionicons, MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
 import * as LOCAL from './model/API/Local_List';
 
-export default function BanGhiNoiBo({ navigation, route }: any) {
-    const {banghi} = route.params
+export default function NoiBo(props: any) {
+    const { banghi } = props;
     const j_steps = JSON.parse(banghi.steps)
 
     useEffect(() => {

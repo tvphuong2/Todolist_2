@@ -140,7 +140,7 @@ export default function BanGhi(props: any) {
 
                 <TaoBinhLuan newComment={binhLuanMoi} setNewComment={taoBinhLuanMoi} handleCreateComment={guiBinhLuan} />
                 {
-                    binhLuan.length > 0 && binhLuan.map((comment: any, index: number) => {
+                    binhLuan && binhLuan.length > 0 && binhLuan.map((comment: any, index: number) => {
                         return (
                             <BinhLuan key={`bl${index}`} comment={comment} />
                         )

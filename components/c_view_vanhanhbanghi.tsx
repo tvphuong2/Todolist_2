@@ -3,10 +3,10 @@ import Buoc from './c_button_buocthuchien'
 import BuocCon from './c_button_buocconthuchien'
 import { MaterialIcons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import * as LOCAL from '../screens/model/API/Local_List'
+import * as LOCALLIST from '../screens/model/API/Local_List'
 import * as API from '../screens/model/API/api';
 
-export default function VanHanhBanGhi(props:any) {
+export default function VanHanhBanGhi({navigation, props}:any) {
     const {banghi, i} = props;
     const [trangThai, thayTrangThai]:any = useState(null);
     const [buoc, thayBuoc]:any = useState();
@@ -25,15 +25,20 @@ export default function VanHanhBanGhi(props:any) {
                     }
                     break
                 }
-                else if (i + 1 == buoc.length)
-                    console.log("DA XONG")
-                else if (trangThai[buoc[i + 1]['key']] == "0") {
+                else if (i + 1 == buoc.length) {
+                    console.log("DA XONG");
+                    LOCALLIST.setOff(banghi.list_id, (res:any) => {
+                        console.log(res);
+                    });
+                    
+
+                } else if (trangThai[buoc[i + 1]['key']] == "0") {
                     t[buoc[i+1]['key']] = "1"
                     da_sua = true
                     break
                 }
             }
-            LOCAL.setProgress(banghi.list_id, t.toString(), (res:any) => {
+            LOCALLIST.setProgress(banghi.list_id, t.toString(), (res:any) => {
                 if (da_sua) thayTrangThai(t)
             })
         } 
@@ -53,7 +58,7 @@ export default function VanHanhBanGhi(props:any) {
                 }
             }
             progress[0] = 1
-            LOCAL.setProgress(banghi.list_id, progress.toString(), (res:any) => {})
+            LOCALLIST.setProgress(banghi.list_id, progress.toString(), (res:any) => {})
         } else {
             progress = banghi.progress.split(",")
         }

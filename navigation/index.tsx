@@ -119,7 +119,7 @@
        <BottomTab.Screen
          name="VanHanh"
          component={VanHanh}
-         initialParams={{capNhat:capNhat}} 
+         initialParams={{capNhat: {capNhat}}} 
          options={({ navigation }: RootTabScreenProps<'VanHanh'>) => ({
            // title: banGhi? banGhi.length + "" : "0",
            title: '',

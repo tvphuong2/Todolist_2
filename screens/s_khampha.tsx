@@ -177,7 +177,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: "#73C2FB",
   },
-  modal: { justifyContent: 'flex-end', margin: 0, marginTop: 300 }
+  modal: { 
+    justifyContent: 'flex-end', 
+    margin: 0, 
+    marginTop: 300,
+   }
 });
 
 const ds_chude = [

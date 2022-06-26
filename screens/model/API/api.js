@@ -17,7 +17,6 @@ export function dangKy (email, name, password, hanhdong) {
 }
 
 export function layAnh(link) {
-    console.log(link);
     var name = link.split("\\");
     name = name[name.length - 1]
     return PATH + "/img/" + name
@@ -113,4 +112,8 @@ export function APILayTongTinTaiKhoan (hanhdong) {
 
 export function APILayThongTin (hanhdong) {
     return getRequest(`${PATH}/list/selfInfo`, hanhdong);
+}
+
+export function APIXoaBanGhi (hanhdong) {
+    return getRequest(`${PATH}/list/delete_list`, hanhdong);
 }

@@ -10,7 +10,7 @@ export function createAccount() {
     db.transaction(tx => {
         tx.executeSql(
             'CREATE TABLE IF NOT EXISTS local_account(' +
-            'account_id integer NOT NULL ' +
+            'account_id integer NOT NULL PRIMARY KEY, ' +
             'name text NOT NULL, ' +
             'image text DEFAULT NULL, ' +
             'email text NOT NULL, ' +

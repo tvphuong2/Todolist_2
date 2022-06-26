@@ -40,7 +40,7 @@ export default function TabOneScreen({navigation, route}:any) {
           {
             banGhi && banGhi.map((banghi:any, i:number) => {
               return (
-                <VanHanhBanGhi banghi={banghi}/>
+                <VanHanhBanGhi banghi={banghi} />
               )})
           }
       </View>

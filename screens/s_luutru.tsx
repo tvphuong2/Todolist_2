@@ -33,7 +33,8 @@ export default function LuuTru({ navigation, route }: any) {
         FileSystem.deleteImg(ket_qua[key].image)
       })
     } else {
-      Alert.alert("", "Xóa bản ghi thành công!!\n Thật ra là chưa làm cái này :v")
+      Alert.alert("", "Xóa bản ghi thành công!!");
+      API.APIXoaBanGhi(ket_qua[key].list_id);
       thay_ket_qua(ket_qua.filter((item: any) => item.key != key))
     }
   }
@@ -62,7 +63,7 @@ export default function LuuTru({ navigation, route }: any) {
     layDuLieuNoiBo()
     LOCALACCOUNT.LayTaiKhoan(thay_tai_khoan);
     const willFocusSubscription = navigation.addListener('focus', () => {
-      layDuLieuNoiBo()
+      layDuLieuNoiBo();
       LOCALACCOUNT.LayTaiKhoan(thay_tai_khoan);
     });
 
