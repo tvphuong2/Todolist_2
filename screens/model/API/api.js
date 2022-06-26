@@ -114,3 +114,22 @@ export function APILayTongTinTaiKhoan (hanhdong) {
 export function APILayThongTin (hanhdong) {
     return getRequest(`${PATH}/list/selfInfo`, hanhdong);
 }
+
+export function APIDoiAva (user_id, image, hanhdong) {
+    let formData = new FormData();
+    formData.append('user_id', user_id);
+    formData.append('image', {
+        name: 'avatar.jpg',
+        type: 'image/jpeg',
+        uri: Platform.OS === 'ios' ? image.replace('file://', '') : image,
+    })
+    console.log(formData);
+    return postRequest(`${PATH}/list/changeava`, hanhdong, formData);
+}
+
+export function APIDoiUserName (user_id, name, hanhdong) {
+    return postRequest(`${PATH}/list/changename`, hanhdong, {
+        user_id: user_id,
+        name: name,
+    });
+}
