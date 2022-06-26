@@ -1,139 +1,160 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Image, TextInput, Dimensions, TouchableOpacity, Text, View, Alert, Modal} from 'react-native';
-import {Ionicons, MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
-import PasswordInput from '../components/c_input_matkhau';
-import { RootTabScreenProps } from '../types';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Image, Alert, Modal, TouchableOpacity, ScrollView } from 'react-native';
+import { IconButton } from 'react-native-paper';
 import * as API from './model/API/api';
-import * as LOCAL from './model/API/SQLite';
-const {width, height} = Dimensions.get('window');
+import * as LOCALACCOUNT from './model/API/Local_Account';
+import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
-export default function Dangnhap({ navigation }: any) {
-    const [tai_khoan, thayTaiKhoan]:any = useState('');
-    const [thong_tin, thayThongTin]:any = useState();
+export default function TaiKhoan() {
+    const [account, setAccount]: any = useState([]);
+    const [info, setInfo]: any = useState([]);
+
 
     useEffect(() => {
-        LOCAL.LayTaiKhoan((res:any) =>{
-            thayTaiKhoan(res)
-            API.APILayTongTinTaiKhoan(thayThongTin)
-        })
-    }, [])
+        LOCALACCOUNT.LayTaiKhoan((res: any) => {
+            setAccount(res);
+        });
+        API.APILayThongTin((res: any) => {
+            setInfo(res);
+        });
+    }, []);
 
     return (
         <View style={styles.container}>
-            <View style={{marginTop: 50, justifyContent: 'center'}}>
-                {tai_khoan && tai_khoan.image && tai_khoan.image !== '' ?
-                    <Image style={styles.logo} source={{ uri: API.layAnh(tai_khoan.image)}} /> :
-                    <Image style={styles.logo} source={require('../assets/images/8.png')} /> 
-                }
-                <Text>         Chào {tai_khoan.name}!         </Text>
-                {
-                    thong_tin?
-                    <View>
-                        <Text>Views: {thong_tin.views? thong_tin.views: 0}</Text>
-                        <Text>Download: {thong_tin.download? thong_tin.download: 0}</Text>
-                        <Text>List count: {thong_tin.count}</Text>
+            <View style={styles.modalView}>
+                <View style={styles.account}>
+                    <View style={styles.title}>
+                        <View>
+                            {account && account.image !== null ?
+                                <Image style={styles.avatar} source={{ uri: account.image }} /> :
+                                <Image style={styles.avatar} source={require('../assets/images/avatar-default.png')} />
+                            }
+                            <IconButton
+                                icon="camera"
+                                size={27}
+                                // onPress={pickImage}
+                                style={styles.camera}
+                            />
+                        </View>
+                        {account && <Text style={styles.name}>
+                            {account.name}{ }
+                            <FontAwesome name="edit" size={24} style={styles.icon} />
+                        </Text>}
                     </View>
-                    :
-                    <View></View>
-                }
+                    <View style={styles.info}>
+                        <View style={styles.row}>
+                            <FontAwesome name="file-text-o" size={24}  style={styles.icon} >
+                                <Text style={styles.data}> {info.list}</Text>
+                            </FontAwesome>
+                            <FontAwesome name="eye" size={24} style={styles.icon} >
+                                <Text style={styles.data}> {info.view}</Text>
+                            </FontAwesome>
+                        </View>
+                        <View style={styles.row}>
+                            <AntDesign name="like1" size={24} style={styles.icon} >
+                                <Text style={styles.data}> {info.votes}</Text>
+                            </AntDesign>
+                            <AntDesign name="download" size={24} style={styles.icon} >
+                                <Text style={styles.data}> {info.download}</Text>
+                            </AntDesign>
+                        </View>
+
+                    </View>
+                </View>
             </View>
+
+
+
         </View>
-        
-    )
+    );
 }
+
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: height,
-        width: width,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white'
-    },
-    logo: {
-        width: 100,
-        height: 100
-    },
-    header: {
-        textAlign: 'center',
-        color: '#202b4d',
-        fontSize: 30,
-        marginBottom: 20,
-        marginTop: 20
-    },
-    inputView: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    input: {
-        width: 350,
-        height: 50,
-        borderBottomWidth: 1,
-        borderColor: 'gray',
-        paddingLeft: 10,
-        backgroundColor: 'white',
-        marginBottom: 20
-    },
-    icon: {
-        position: 'absolute',
-        right: 10
-    },
-    btn: {
-        width: 350,
-        height: 50,
-        borderRadius: 5,
-        backgroundColor: '#ee4d2d',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    btnText: {
-        color: 'white',
-        fontSize: 16
-    },
-    footer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: 340
-    },
-    linkText: {
-        marginTop: 10,
-        textDecorationLine: 'underline',
-        color: '#202b4d'
-    },
-    centeredView: {
-        flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        // backgroundColor: 'black',
+        // opacity: 0.5,
+        borderRadius: 20,
+        zIndex: 0,
     },
+    
     modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 5,
-    paddingTop: 20,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-        width: 0,
-        height: 2
+        zIndex: 1,
+        opacity: 1,
+        marginTop: 20,
+        padding: 20,
+        backgroundColor: "white",
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
+        borderColor: '#339fb7',
+        paddingHorizontal: 35,
+        alignItems: "center",
+        shadowColor: "black",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        position: 'absolute',
+        width: '100%',
+        bottom: 0,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
+    account: {
+        // backgroundColor: '#E5E5E5',
     },
-    button: {
-    flexDirection: 'row',
+    title: {
+        alignItems: 'center'
     },
-    buttonModal: {
-    borderWidth: 1,
-    borderColor: '#f1f1f1',
-    width: '100%',
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center'
+    avatar: {
+        width: 170,
+        height: 170,
+        borderRadius: 85,
+        backgroundColor: "#73C2FB",
     },
-    modalText: {
-    marginBottom: 15,
-    color: 'gray'
+    avatarIcon: {
+        width: 170,
+        height: 170,
+        borderRadius: 85,
+        fontSize: 50
+    },
+    camera: {
+        position: 'absolute',
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "#D7F8FF"
+    },
+    icon: {
+        color: "#45818E",
+        marginHorizontal: 40,
+    },
+    name: {
+        fontSize: 18,
+        fontWeight: "500",
+        marginTop: 10
+    },
+    info: {
+        padding: 20,
+        flex: 1,
+    },
+    row: {
+        flexDirection: 'row',
+        padding: 5,
+    },
+    data: {
+        fontSize: 20,
     }
-})
+
+});
+
+function rgba(arg0: number, arg1: number, arg2: number, arg3: number): any | import("react-native").ColorValue | undefined {
+    throw new Error('Function not implemented.');
+}

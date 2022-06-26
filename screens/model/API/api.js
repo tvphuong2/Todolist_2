@@ -1,4 +1,4 @@
-import {PATH, getRequest, postRequest, getFile} from './api_chung'
+import {PATH, getRequest, postRequest, getFile, postFile} from './api_chung'
 
 export function dangNhap (email, matkhau, hanhdong) {
     return postRequest(PATH, hanhdong, {
@@ -7,8 +7,17 @@ export function dangNhap (email, matkhau, hanhdong) {
     })
 }
 
+export function dangKy (email, name, password, hanhdong) {
+    return postRequest(`${PATH}/register`, hanhdong, {
+        email: email,
+        name: name,
+        // image: image,
+        password: password,
+    })
+}
+
 export function layAnh(link) {
-    var name =link.split("\\")
+    var name = link.split("\\");
     name = name[name.length - 1]
     return PATH + "/img/" + name
 }
@@ -73,6 +82,16 @@ export function APITimKiemTheoTacGia (user_id, hanhdong) {
     return getFile(`${PATH}/search/byauthor?account_id = ${user_id}`, hanhdong)
 }
 
+export function APITaoBanGhi(ban_ghi, hanhdong) {
+    let formData = new FormData();
+    formData.append("steps", ban_ghi.steps);
+    formData.append("name", ban_ghi.name);
+    formData.append("description", ban_ghi.description);
+    formData.append("type_id", ban_ghi.type_id);
+    formData.append("image", {uri: ban_ghi.image, name: 'image.png', type: 'image/png'});
+    
+    return postFile(`${PATH}/list/set_list`, hanhdong, formData);
+}
 
 export function APITaoBinhLuan (list_id, binh_luan, hanhdong) {
     return postRequest(`${PATH}/list/make_comment/`, hanhdong, {
@@ -89,4 +108,8 @@ export function APITangLuotTaiVe (list_id, hanhdong) {
 
 export function APILayTongTinTaiKhoan (hanhdong) {
     return getRequest(`${PATH}/search/getinfo`, hanhdong)
+}
+
+export function APILayThongTin (hanhdong) {
+    return getRequest(`${PATH}/list/selfInfo`, hanhdong);
 }

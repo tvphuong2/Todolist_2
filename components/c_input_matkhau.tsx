@@ -30,15 +30,14 @@ const styles = StyleSheet.create({
     input: {
         width: 350,
         height: 50,
-        borderBottomWidth: 1,
-        borderColor: 'gray',
-        paddingLeft: 10,
+        paddingLeft: 15,
         backgroundColor: 'white',
-        marginBottom: 20
+        marginBottom: 20,
+        borderRadius: 25
     },
     icon: {
         position: 'absolute',
-        right: 10,
+        right: 15,
         top: 15
     },
 })

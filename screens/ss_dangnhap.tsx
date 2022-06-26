@@ -1,76 +1,86 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Image, TextInput, Dimensions, TouchableOpacity, Text, View, Alert, Modal} from 'react-native';
+import { StyleSheet, Image, TextInput, Dimensions, TouchableOpacity, Text, View, Alert, Modal } from 'react-native';
 // import {  } from '../components/Themed';
-import {Ionicons, MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
+import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import PasswordInput from '../components/c_input_matkhau';
 import { RootTabScreenProps } from '../types';
 import * as API from './model/API/api';
-import * as LOCAL from './model/API/SQLite';
-const {width, height} = Dimensions.get('window');
+import * as LOCALLIST from './model/API/Local_List';
+import * as LOCALACCOUNT from './model/API/Local_Account';
+const { width, height } = Dimensions.get('window');
+import * as FileSystem from './model/API/FileSystem';
 
-export default function Dangnhap({ navigation, route }:any) {
-    const thay_tai_khoan = route.params
+
+export default function Dangnhap({ navigation, route }: any) {
+    let thay_tai_khoan = route.params
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [e_login, setE_login] = useState('');
 
-    const dangNhap = () => {
+    async function dangNhap() {
         console.log("dang dang nhap")
+        LOCALACCOUNT.createAccount();
         API.dangNhap(email, password, (res: any) => {
-            console.log(res)
+            // console.log(res)
             if (res.status != "thanhcong") {
                 setE_login('Tên đăng nhập hoặc mật khẩu sai')
             } else {
-                LOCAL.DangNhap(res.name, password, res.image, email, (res:any) => {
-                    LOCAL.LayTaiKhoan((res:any) => {
-                        thay_tai_khoan(res)
-                        navigation.navigate('KhamPha')
+                API.APILayTacGia(res.id, (result: any) => {
+                    FileSystem.downloadImage(result.image, (img: any) => {
+                        result.image = img;
+                        LOCALACCOUNT.DangNhap(result, (res: any) => {
+                            console.log("Đăng nhập thành công");
+                            LOCALACCOUNT.LayTaiKhoan((res: any) => {
+                                thay_tai_khoan = res;
+                                navigation.navigate('KhamPha');
+                            })
+                        })
                     })
-                    
                 })
             }
-        })
+        });
+        
     }
+
+
 
     return (
         <View style={styles.container}>
             <View>
-                <View>
-                    <Image style={styles.logo} source={require('../assets/images/8.png')} />
-                </View>
-                <View>
-                    <Text style={styles.header}>Đăng nhập</Text>
-                </View>
-                <View>
-                    <View style={styles.inputView}>
-                        <TextInput autoComplete='email' style={styles.input} placeholder='Email' value={email} onChangeText={setEmail} />
-                    </View>
-                    <PasswordInput password={password} setPassword={setPassword} placeholder='Mật khẩu' />        
-                </View>
-                <Text>{e_login}</Text>
-                <TouchableOpacity style={styles.btn} onPress={dangNhap}>
-                    <Text style={styles.btnText}>ĐĂNG NHẬP</Text>
-                </TouchableOpacity>
-
-
-                <TouchableOpacity>
-                    <View style={styles.footer}>
-                        <View>
-                            {/* <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Dangky')}> */}
-                            <TouchableOpacity>
-                                <Text style={styles.linkText}>Đăng ký</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View>
-                            <TouchableOpacity>
-                                <Text style={styles.linkText}>Quên mật khẩu</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </TouchableOpacity>
+                <Image style={styles.logo} source={require('../assets/images/logo.png')} />
             </View>
+            <View>
+                <Text style={styles.header}>Đăng nhập</Text>
+            </View>
+            <View>
+                <View style={styles.inputView}>
+                    <TextInput autoComplete='email' style={styles.input} placeholder='Email' value={email} onChangeText={setEmail} />
+                </View>
+                <PasswordInput password={password} setPassword={setPassword} placeholder='Mật khẩu' />
+            </View>
+            <Text>{e_login}</Text>
+            <TouchableOpacity style={styles.btn} onPress={dangNhap}>
+                <Text style={styles.btnText}>ĐĂNG NHẬP</Text>
+            </TouchableOpacity>
+
+
+            <TouchableOpacity>
+                <View style={styles.footer}>
+                    <View>
+                        {/* <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Dangky')}> */}
+                        <TouchableOpacity onPress={() => navigation.navigate('DangKy')}>
+                            <Text style={styles.linkText}>Đăng ký</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <TouchableOpacity>
+                            <Text style={styles.linkText}>Quên mật khẩu</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </TouchableOpacity>
         </View>
-        
+
     )
 }
 
@@ -81,7 +91,7 @@ const styles = StyleSheet.create({
         width: width,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white'
+        backgroundColor: '#abe7ff'
     },
     logo: {
         width: 100,
@@ -89,8 +99,9 @@ const styles = StyleSheet.create({
     },
     header: {
         textAlign: 'center',
-        color: '#202b4d',
+        color: '#339fb7',
         fontSize: 30,
+        fontWeight: '600',
         marginBottom: 20,
         marginTop: 20
     },
@@ -101,11 +112,10 @@ const styles = StyleSheet.create({
     input: {
         width: 350,
         height: 50,
-        borderBottomWidth: 1,
-        borderColor: 'gray',
-        paddingLeft: 10,
+        paddingLeft: 15,
         backgroundColor: 'white',
-        marginBottom: 20
+        marginBottom: 20,
+        borderRadius: 25
     },
     icon: {
         position: 'absolute',
@@ -114,14 +124,15 @@ const styles = StyleSheet.create({
     btn: {
         width: 350,
         height: 50,
-        borderRadius: 5,
-        backgroundColor: '#ee4d2d',
+        borderRadius: 25,
+        backgroundColor: '#339fb7',
         alignItems: 'center',
         justifyContent: 'center'
     },
     btnText: {
         color: 'white',
-        fontSize: 16
+        fontSize: 16,
+        fontWeight: '600'
     },
     footer: {
         flexDirection: 'row',
@@ -139,33 +150,33 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 5,
-    paddingTop: 20,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-        width: 0,
-        height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 5,
+        paddingTop: 20,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
     },
     button: {
-    flexDirection: 'row',
+        flexDirection: 'row',
     },
     buttonModal: {
-    borderWidth: 1,
-    borderColor: '#f1f1f1',
-    width: '100%',
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center'
+        borderWidth: 1,
+        borderColor: '#f1f1f1',
+        width: '100%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     modalText: {
-    marginBottom: 15,
-    color: 'gray'
+        marginBottom: 15,
+        color: 'gray'
     }
 })

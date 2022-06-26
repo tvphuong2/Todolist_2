@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Image, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
 import {Ionicons, MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
-import * as LOCAL from './model/API/SQLite';
+import * as LOCAL from './model/API/Local_List';
 
 export default function BanGhiNoiBo({ navigation, route }: any) {
     const {banghi} = route.params
@@ -14,8 +14,8 @@ export default function BanGhiNoiBo({ navigation, route }: any) {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.illustration}>
-                {banghi && banghi.image !== '' ?
-                    <Image style={styles.img} source={{ uri: LOCAL.layAnh(banghi.image)}} /> :
+                {banghi && banghi.image !== '' && banghi.image !== null ?
+                    <Image style={styles.img} source={{ uri: banghi.image}} /> :
                     <Image style={styles.img} source={require('../assets/images/8.png')} /> 
                 }
             </View>

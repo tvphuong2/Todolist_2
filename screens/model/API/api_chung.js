@@ -1,4 +1,4 @@
-export const PATH = 'http://192.168.233.119:3000'
+export const PATH = 'http://192.168.0.119:3000'
 
 export function getRequest(duongdan, hanhdong) {
     return fetch(duongdan)
@@ -22,6 +22,19 @@ export function postRequest(duongdan, hanhdong, body) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(body)
+    }).then(response => response.json()).then(res => {
+        hanhdong(res)
+    });
+}
+
+export function postFile(duongdan, hanhdong, body) {
+    return fetch(duongdan, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'multipart/form-data',
+        },
+        body: body
     }).then(response => response.json()).then(res => {
         hanhdong(res)
     });
