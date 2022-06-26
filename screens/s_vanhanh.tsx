@@ -27,6 +27,11 @@ export default function TabOneScreen({navigation, route}:any) {
     return willFocusSubscription;
   }, [])
 
+  useEffect(() => {
+    console.log(banGhi)
+  }, [banGhi])
+  
+
   // useEffect(() => {
   //   if (dangThucHien)
   //     LOCAL.setProgress(dangThucHien.list_id, trangThai.toString(), (res:any) => {
@@ -40,7 +45,7 @@ export default function TabOneScreen({navigation, route}:any) {
           {
             banGhi && banGhi.map((banghi:any, i:number) => {
               return (
-                <VanHanhBanGhi banghi={banghi} />
+                <VanHanhBanGhi banghi={banghi} thayBanGhi={thayBanGhi} capNhat={capNhat} navigation={navigation}/>
               )})
           }
       </View>

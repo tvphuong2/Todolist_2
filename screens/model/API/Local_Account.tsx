@@ -1,5 +1,4 @@
 import * as SQLite from 'expo-sqlite';
-import { PATH } from './api_chung';
 
 
 const db = SQLite.openDatabase('db.todolist') // returns Database object

@@ -3,7 +3,7 @@ import {
   View,
   Text,
   Switch,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
   TouchableHighlight,
   StyleSheet,
   ScrollView,
@@ -12,6 +12,7 @@ import * as LOCAL from '../screens/model/API/Local_List'
 import Modal from "react-native-modal";
 import BanGhi from '../screens/ss_banghi';
 import NoiBo from '../screens/ss_banghi_noibo';
+   
 
 export default function BanGhiNoiBo(props: any) {
   const { index, banghi, navigation, capNhat } = props;
@@ -44,30 +45,30 @@ export default function BanGhiNoiBo(props: any) {
 
   return (
     <View>
-    <TouchableHighlight key={index} onPress={() => { chuyenTrang(); setModalVisible(true)}}>
-      <View style={styles.banghi}>
-        <View style={styles.todo}>
-          {banghi.name.length < 22 ?
-            <Text style={styles.title}>{banghi.name}</Text> :
-            <Text style={styles.title}>{banghi.name.substring(0, 20)}...</Text>
-          }
-        </View>
-        <View style={styles.status}>
-          {
-            banghi.view == null ?
-              <Switch
-                trackColor={{ false: "#767577", true: "#d7f8ff" }}
-                thumbColor={isEnabled ? "#339fb7" : "#339fb7"}
-                ios_backgroundColor="#eeeeee"
-                onValueChange={toggleSwitch}
-                value={isEnabled}
-              /> :
-              <View></View>
-          }
+    <TouchableWithoutFeedback key={index} onPress={() => {chuyenTrang(); setModalVisible(true)}}>
+          <View style={styles.banghi}>
+              <View style={styles.todo}>
+              { banghi.name.length < 22 ? 
+                  <Text style={styles.title}>{ banghi.name }</Text>:
+                  <Text style={styles.title}>{ banghi.name.substring(0, 20) }...</Text>
+              }
+              </View>
+              <View style={styles.status}>
+                {
+                  banghi.view == null ?
+                  <Switch
+                  trackColor={{ false: "#767577", true: "#d7f8ff" }}
+                  thumbColor={isEnabled ? "#339fb7" : "#339fb7"}
+                  ios_backgroundColor="#eeeeee"
+                  onValueChange={toggleSwitch}
+                  value={isEnabled}
+                  />:
+                  <View></View>
+                }
 
-        </View>
-      </View>
-    </TouchableHighlight>
+              </View>
+          </View>
+        </TouchableWithoutFeedback>
     <Modal
         isVisible={modalVisible}
         style={styles.modal}
@@ -125,4 +126,5 @@ const styles = StyleSheet.create({
     borderTopColor: "white",
     overflow: 'hidden',
   }
+    
 })

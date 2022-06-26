@@ -7,9 +7,18 @@ import * as LOCALLIST from '../screens/model/API/Local_List'
 import * as API from '../screens/model/API/api';
 
 export default function VanHanhBanGhi(props:any) {
-    const {banghi, i} = props;
+    const {banghi, thayBanGhi, capNhat, navigation} = props;
     const [trangThai, thayTrangThai]:any = useState(null);
     const [buoc, thayBuoc]:any = useState();
+
+    function hoanThanh() {
+        LOCALLIST.setOff(banghi.list_id, ()=> {
+            capNhat.capNhat()
+            LOCALLIST.getProgress(thayBanGhi);
+        })
+            
+        capNhat.capNhat()
+    }
 
     useEffect(() => {
         if (trangThai && buoc) {
@@ -26,11 +35,7 @@ export default function VanHanhBanGhi(props:any) {
                     break
                 }
                 else if (i + 1 == buoc.length) {
-                    console.log("DA XONG");
-                    
-                    // LOCALLIST.setOff(banghi.list_id, (res:any) => {
-                    //     console.log(res);
-                    // });
+                    hoanThanh();
                     
 
                 } else if (trangThai[buoc[i + 1]['key']] == "0") {

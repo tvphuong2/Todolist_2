@@ -217,7 +217,6 @@ export function cancelList(list_id, callback) {
 
 
 export function layAnh(link) {
-  // if (!link) return null;
   var name = link.split("\\");
   name = name[name.length - 1];
   return PATH + "/img/" + name;

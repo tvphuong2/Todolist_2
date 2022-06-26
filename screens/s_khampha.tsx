@@ -27,7 +27,6 @@ export default function KhamPha({ navigation }: RootTabScreenProps<'KhamPha'>) {
     const willFocusSubscription = navigation.addListener('focus', () => {
       LOCALACCOUNT.LayTaiKhoan(thay_tai_khoan);
     });
-
     return willFocusSubscription;
   }, [])
 
@@ -36,7 +35,6 @@ export default function KhamPha({ navigation }: RootTabScreenProps<'KhamPha'>) {
     const willFocusSubscription = navigation.addListener('focus', () => {
       API.APITimKiem(tu_khoa, thay_ket_qua);
     });
-
     return willFocusSubscription;
   }, [tu_khoa])
 
@@ -45,7 +43,6 @@ export default function KhamPha({ navigation }: RootTabScreenProps<'KhamPha'>) {
     const willFocusSubscription = navigation.addListener('focus', () => {
       API.APITimKiem(tu_khoa, thay_ket_qua);
     });
-
     return willFocusSubscription;
   }, [tai_khoan])
 
@@ -64,7 +61,7 @@ export default function KhamPha({ navigation }: RootTabScreenProps<'KhamPha'>) {
           tai_khoan && tai_khoan.email ?
             <View style={{ marginBottom: 15, width: '100%' }}>
               <View style={{ flexDirection: 'row', paddingTop: 50, justifyContent: 'center', alignItems: 'center', backgroundColor: '#abe7ff' }}>
-                <TouchableOpacity onPress={() => {setModalVisible(true);}}>
+                <TouchableOpacity onPress={() => setModalVisible(true)}>
                   {
                     tai_khoan.image && tai_khoan.image !== '' ?
                       <Image style={styles.ava} source={{ uri: tai_khoan.image }} />

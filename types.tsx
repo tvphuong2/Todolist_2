@@ -23,6 +23,7 @@ export type RootStackParamList = {
   TaiKhoan:any;
   DangNhap:any;
   DangKy: any;
+  TaoBanGhi:any,
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

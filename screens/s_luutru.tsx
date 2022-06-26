@@ -30,7 +30,8 @@ export default function LuuTru({ navigation, route }: any) {
     if (noi_bo) {
       LOCALLIST.deleteList(ket_qua[key].list_id, (res: any) => {
         thay_ket_qua(ket_qua.filter((item: any) => item.key != key))
-        FileSystem.deleteImg(ket_qua[key].image)
+        FileSystem.deleteImg(ket_qua[key].image);
+        // capNhat();
       })
     } else {
       Alert.alert("", "Xóa bản ghi thành công!!");
@@ -63,7 +64,8 @@ export default function LuuTru({ navigation, route }: any) {
     layDuLieuNoiBo()
     LOCALACCOUNT.LayTaiKhoan(thay_tai_khoan);
     const willFocusSubscription = navigation.addListener('focus', () => {
-      layDuLieuNoiBo();
+      thay_ket_qua(null)
+      layDuLieuNoiBo()
       LOCALACCOUNT.LayTaiKhoan(thay_tai_khoan);
     });
 
@@ -141,7 +143,7 @@ export default function LuuTru({ navigation, route }: any) {
   }
 
   return (
-    <View style={{ flex: 1, }}>
+    <View style={{ flex: 1, backgroundColor: "#fff"}}>
       <ScrollView>
       <ImageBackground
         source={{ uri: 'https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg?w=2000' }}
@@ -212,22 +214,30 @@ export default function LuuTru({ navigation, route }: any) {
           }
 
         </View>
-        <View style={styles.body}>
-          <SwipeListView
-            data={ket_qua}
-            renderItem={hienThiBanGhi}
-            renderHiddenItem={hienThiNen}
-            // rightOpenValue={-Dimensions.get('window').width / 6}
-            // leftOpenValue={Dimensions.get('window').width / 6}
-            previewRowKey={'0'}
-            previewOpenValue={-Dimensions.get('window').width}
-            previewOpenDelay={1000}
-            onSwipeValueChange={khiVuot}
-            useNativeDriver={false}
-          />
-        </View>
+        { ket_qua && ket_qua.length > 0?
+          <View style={styles.body}>
+            <SwipeListView
+              data={ket_qua}
+              renderItem={hienThiBanGhi}
+              renderHiddenItem={hienThiNen}
+              // rightOpenValue={-Dimensions.get('window').width / 6}
+              // leftOpenValue={Dimensions.get('window').width / 6}
+              previewRowKey={'0'}
+              previewOpenValue={-Dimensions.get('window').width}
+              previewOpenDelay={1000}
+              onSwipeValueChange={khiVuot}
+              useNativeDriver={false}
+            />
+          </View>
+          :
+          <Text style={[styles.body, styles.noti]}>Chưa có bản ghi nào</Text>
+        }
+
       </ImageBackground>
       </ScrollView>
+      <TouchableOpacity style={styles.addButton} onPress={()=> {navigation.navigate('TaoBanGhi')}}>
+          <Text style={styles.cross}>+</Text>
+        </TouchableOpacity>
     </View>
   );
 }
@@ -358,5 +368,31 @@ const styles = StyleSheet.create({
     shadowRadius: 6.68,
 
     elevation: 11,
+  },
+  addButton: {
+    position:'absolute', 
+    bottom: 40,
+    right:20,
+    width:60, 
+    height:60,
+    borderRadius: 50, 
+    backgroundColor:'#339fb7', 
+    zIndex:2000,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cross: {
+    color:'#fff',
+    fontSize: 40,
+    position: 'relative',
+    top:-2
+  },
+  noti: {
+    textAlign:'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 20,
+    paddingTop: 20,
+    color: '#339fb7'
   }
 });

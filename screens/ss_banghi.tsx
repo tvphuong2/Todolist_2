@@ -70,7 +70,6 @@ export default function BanGhi(props: any) {
                 }
             }, 500)
         });
-
     }
 
     useEffect(() => {

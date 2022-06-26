@@ -58,11 +58,9 @@
        <Stack.Group screenOptions={{ presentation: 'modal' }}>
          <Stack.Screen name="ChuDe" component={ChuDe}/>
          <Stack.Screen name="Modal" component={ModalScreen}/>
-         {/* <Stack.Screen name="BanGhi" component={BanGhi} options={{title: 'Xem bản ghi'}}/> */}
+         <Stack.Screen name="BanGhi" component={BanGhi} options={{title: 'Xem bản ghi'}}/>
          <Stack.Screen name="BanGhiNoiBo" component={BanGhiNoiBo} options={{title: 'Xem bản ghi'}}/>
-         {/* <Stack.Screen name="BanGhi" component={TaoBanGhi} options={{title: 'Xem bản ghi'}}/> */}
- 
-         {/* <Stack.Screen name="TaiKhoan" component={TaiKhoan}/> */}
+         <Stack.Screen name="TaoBanGhi" component={TaoBanGhi}/>
          <Stack.Screen name="DangNhap" component={DangNhap}/>
          <Stack.Screen name="DangKy" component={DangKy}/>
        </Stack.Group>
@@ -81,6 +79,7 @@
    const [banGhi, thayBanGhi]:any = useState(null);
  
    function capNhat() {
+      console.log("da cap nhat")
      LOCALLIST.getProgress(thayBanGhi)
    }
  
@@ -119,7 +118,7 @@
        <BottomTab.Screen
          name="VanHanh"
          component={VanHanh}
-         initialParams={{capNhat: {capNhat}}} 
+         initialParams={{capNhat:{capNhat}}} 
          options={({ navigation }: RootTabScreenProps<'VanHanh'>) => ({
            // title: banGhi? banGhi.length + "" : "0",
            title: '',
